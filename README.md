@@ -13,6 +13,41 @@ projet cible.
 
 Les conventions détaillées seront ajoutées progressivement.
 
+## Skills Disponibles
+
+### Planification Et Onboarding
+
+| Skill | Description |
+|-------|-------------|
+| [`/plan`](.claude/skills/plan/SKILL.md) | Plan d'implémentation React/Next.js avant code : étapes, fichiers, tests, validations, risques. |
+
+## Exemples D'Invocation
+
+| Besoin | Skill | Exemple |
+|--------|-------|---------|
+| Planifier une feature ou un bugfix | `/plan` | `/plan prépare l'implémentation de <feature-ou-bugfix>` |
+
+## Convention De Structure
+
+Chaque skill est un dossier dans `.claude/skills/<nom>/` avec un fichier
+obligatoire `SKILL.md`.
+
+```text
+.claude/
+└── skills/
+    └── nom-du-skill/
+        └── SKILL.md
+```
+
+Le nom du dossier et le champ `name` doivent être identiques.
+
+```yaml
+---
+name: nom-du-skill
+description: "Description courte et précise du moment où utiliser ce skill."
+---
+```
+
 ## Template projet
 
 Un template de `CLAUDE.md` est disponible dans `templates/CLAUDE.md`. Il sert de
