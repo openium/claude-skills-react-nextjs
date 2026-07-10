@@ -15,6 +15,12 @@ Les conventions détaillées seront ajoutées progressivement.
 
 ## Skills Disponibles
 
+### Qualité De Code
+
+| Skill | Description |
+|-------|-------------|
+| [`/review`](.claude/skills/review/SKILL.md) | Revue de code React/Next.js : bugs, typage, Server/Client Components, sécurité, accessibilité, performance, tests. |
+
 ### Planification Et Onboarding
 
 | Skill | Description |
@@ -25,6 +31,7 @@ Les conventions détaillées seront ajoutées progressivement.
 
 | Besoin | Skill | Exemple |
 |--------|-------|---------|
+| Relire un diff avant commit | `/review` | `/review analyse le diff staged avant commit` |
 | Planifier une feature ou un bugfix | `/plan` | `/plan prépare l'implémentation de <feature-ou-bugfix>` |
 
 ## Convention De Structure
