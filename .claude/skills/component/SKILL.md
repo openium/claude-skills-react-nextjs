@@ -60,6 +60,14 @@ les manques qui bloquent l'usage.
 - Ne pas importer un module serveur dans un composant client.
 - Utiliser `next/image`, `next/link` ou primitives existantes selon le projet.
 
+## Galerie De Composants
+
+Si le projet dispose d'une page galerie (démarrage depuis un boilerplate),
+référencer chaque composant réutilisable créé ou modifié avec tous ses états
+visibles (loading, empty, error, disabled, variants). Cette page sert de
+vérification visuelle. Ne pas la créer si le projet n'en a pas et si ce n'est
+pas demandé.
+
 ## Tests Et Storybook
 
 - Ajouter ou adapter un test de composant si le projet utilise Jest/Vitest et Testing Library.

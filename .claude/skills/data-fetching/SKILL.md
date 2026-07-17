@@ -63,6 +63,16 @@ Prévoir :
 - pagination terminée ;
 - disabled pendant mutation si nécessaire.
 
+## Chargement Scindé Par Section
+
+- Ne pas bloquer toute une page sur un unique `Promise.all` avec un loader
+  plein écran.
+- Scinder les appels indépendants en sous-composants, chacun avec son propre
+  `Suspense` et son skeleton, pour afficher chaque bloc dès que sa donnée arrive
+  (streaming) plutôt que d'attendre la requête la plus lente.
+- Réserver le loader global au cas où toutes les données sont réellement
+  interdépendantes.
+
 ## Tests Et Validation
 
 - Tester succès, erreur, empty et pagination si applicables.
