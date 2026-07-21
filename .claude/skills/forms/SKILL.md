@@ -1,84 +1,84 @@
 ---
 name: forms
-description: "Crée ou modifie des formulaires React/TypeScript/Next.js selon l'architecture existante. Couvre contrôlé/non contrôlé, validation client et serveur, validation runtime, Server Actions ou API, erreurs, focus, double soumission, loading/disabled, accessibilité, données sensibles et tests."
+description: "Creates or modifies React/TypeScript/Next.js forms according to the existing architecture. Covers controlled/uncontrolled patterns, client and server validation, runtime validation, Server Actions or APIs, errors, focus, double submission, loading/disabled states, accessibility, sensitive data, and tests."
 ---
 
-# Formulaires React / Next.js
+# React / Next.js Forms
 
-## Périmètre
+## Scope
 
-Créer, corriger ou améliorer un formulaire sans supposer React Hook Form, Zod,
-Yup ou une autre bibliothèque si elle n'est pas déjà utilisée.
+Create, fix, or improve a form without assuming React Hook Form, Zod, Yup, or
+another library if it is not already used.
 
-## État Des Lieux
+## Current State
 
-Inspecter :
+Inspect:
 
-- Formulaires voisins et conventions de validation.
-- Présence de React Hook Form, Formik, Zod, Yup, Valibot ou validators custom.
-- Architecture de soumission : Server Actions, Route Handlers, API routes, client API.
-- Gestion existante des erreurs, loading, disabled et focus.
-- Tests de formulaires existants.
+- Neighboring forms and validation conventions.
+- Presence of React Hook Form, Formik, Zod, Yup, Valibot, or custom validators.
+- Submission architecture: Server Actions, Route Handlers, API routes, client API.
+- Existing error, loading, disabled, and focus handling.
+- Existing form tests.
 
-## Modèle De Formulaire
+## Form Model
 
-- Utiliser contrôlé ou non contrôlé selon la convention du projet.
-- Éviter de stocker deux sources de vérité pour la même valeur.
-- Préserver types TypeScript et contrats de payload.
-- Ne pas exposer données sensibles côté client plus que nécessaire.
+- Use controlled or uncontrolled inputs according to the project convention.
+- Avoid storing two sources of truth for the same value.
+- Preserve TypeScript types and payload contracts.
+- Do not expose sensitive data client-side more than necessary.
 
 ## Validation
 
-- Garder validation serveur obligatoire pour données utilisateur.
-- Ajouter validation client seulement comme aide UX.
-- Utiliser une validation runtime si le projet en a déjà une ou si le boundary l'exige.
-- Retourner des erreurs par champ et erreurs globales.
-- Ne pas faire confiance aux types TypeScript pour valider une entrée runtime.
+- Keep server validation mandatory for user data.
+- Add client validation only as UX help.
+- Use runtime validation if the project already has it or if the boundary requires it.
+- Return field errors and global errors.
+- Do not trust TypeScript types to validate runtime input.
 
-## Soumission Et États
+## Submission And States
 
-- Empêcher double soumission si l'action n'est pas idempotente.
-- Gérer loading et disabled sans bloquer la navigation clavier inutilement.
-- Préserver les valeurs utiles après erreur.
-- Distinguer erreur validation, erreur réseau et erreur serveur inattendue.
-- Gérer succès, reset et redirection selon le parcours existant.
+- Prevent double submission if the action is not idempotent.
+- Handle loading and disabled states without unnecessarily blocking keyboard navigation.
+- Preserve useful values after an error.
+- Distinguish validation error, network error, and unexpected server error.
+- Handle success, reset, and redirect according to the existing journey.
 
-## Accessibilité Et Focus
+## Accessibility And Focus
 
-- Associer label, description et message d'erreur au champ.
-- Utiliser `aria-invalid`, `aria-describedby` si utile.
-- Mettre le focus sur la première erreur ou fournir un résumé accessible.
-- Ne pas remplacer bouton submit natif par un élément non sémantique.
+- Associate label, description, and error message with the field.
+- Use `aria-invalid` and `aria-describedby` when useful.
+- Move focus to the first error or provide an accessible summary.
+- Do not replace a native submit button with a non-semantic element.
 
 ## Next.js
 
-- Server Actions si le projet les utilise déjà et que le formulaire s'y prête.
-- API route ou Route Handler si c'est la convention existante.
-- Ne pas migrer Pages Router vers App Router pour un formulaire.
-- Ne pas déplacer secret ou validation sensible dans un Client Component.
+- Use Server Actions if the project already uses them and the form fits.
+- Use an API route or Route Handler if that is the existing convention.
+- Do not migrate Pages Router to App Router for a form.
+- Do not move a secret or sensitive validation into a Client Component.
 
 ## Tests
 
-- Tester saisie utilisateur avec `userEvent`.
-- Tester validation client si présente, erreurs serveur, loading et double submit.
-- Tester le payload envoyé ou la Server Action via la stratégie existante.
-- Ajouter test de régression pour bugfix.
+- Test user input with `userEvent`.
+- Test client validation if present, server errors, loading, and double submit.
+- Test the sent payload or Server Action through the existing strategy.
+- Add a regression test for bugfixes.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas supposer React Hook Form ou une librairie de schémas.
-- Ne pas valider seulement côté client.
-- Ne pas exposer token, secret ou donnée sensible dans le DOM ou les logs.
-- Ne pas désactiver un bouton sans message ou état perceptible.
-- Ne pas supprimer les attributs natifs utiles (`type`, `required`, `autoComplete`) sans raison.
+- Do not assume React Hook Form or a schema library.
+- Do not validate only on the client side.
+- Do not expose a token, secret, or sensitive data in the DOM or logs.
+- Do not disable a button without a perceptible message or state.
+- Do not remove useful native attributes (`type`, `required`, `autoComplete`) without a reason.
 
-## Format De Sortie
+## Output Format
 
-Résumer :
+Summarize:
 
-- **Architecture du formulaire**
-- **Validation client/serveur**
-- **Gestion des erreurs et focus**
-- **États loading/disabled**
-- **Tests ajoutés ou proposés**
-- **Risques ou décisions à valider**
+- **Form architecture**
+- **Client/server validation**
+- **Error and focus handling**
+- **Loading/disabled states**
+- **Tests added or proposed**
+- **Risks or decisions to validate**

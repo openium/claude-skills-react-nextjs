@@ -1,101 +1,101 @@
 ---
 name: upgrade
-description: "Planifie ou accompagne les upgrades Node.js, React, Next.js, TypeScript et dépendances frontend. Analyse versions, release notes officielles, breaking changes, peer dependencies, codemods, lockfile, tests, build, rollback, App Router et Pages Router. Ne lance pas l'upgrade sans validation explicite du plan."
+description: "Plans or supports upgrades for Node.js, React, Next.js, TypeScript, and frontend dependencies. Analyzes versions, official release notes, breaking changes, peer dependencies, codemods, lockfile, tests, build, rollback, App Router, and Pages Router. Does not run the upgrade without explicit plan validation."
 ---
 
-# Upgrade React / Next.js
+# React / Next.js Upgrade
 
-## Périmètre
+## Scope
 
-Déterminer si l'utilisateur demande :
+Determine whether the user is asking for:
 
-- Diagnostic ou plan d'upgrade : ne pas modifier le code.
-- Application d'un upgrade validé : procéder par étapes vérifiables.
-- Cible précise : Node.js, React, Next.js, TypeScript, dépendance ou tooling.
+- Upgrade diagnosis or plan: do not modify code.
+- Application of a validated upgrade: proceed in verifiable steps.
+- Specific target: Node.js, React, Next.js, TypeScript, dependency, or tooling.
 
-Si la cible n'est pas donnée, analyser l'état actuel et demander la cible avant
-de modifier.
+If the target is not given, analyze the current state and ask for the target
+before modifying.
 
-Ne pas lancer l'upgrade sans validation explicite du plan.
+Do not run the upgrade without explicit plan validation.
 
-## État Des Lieux
+## Current State
 
-Inspecter :
+Inspect:
 
 - `package.json`, lockfile, package manager.
-- Versions Node.js : `.nvmrc`, `.node-version`, Dockerfile, CI, `engines`.
+- Node.js versions: `.nvmrc`, `.node-version`, Dockerfile, CI, `engines`.
 - React, Next.js, TypeScript, ESLint, test runner, bundler.
-- App Router, Pages Router ou hybride.
+- App Router, Pages Router, or hybrid.
 - `next.config.*`, `tsconfig.json`, lint, tests, CI.
-- Dépendances avec peer dependencies sensibles.
+- Dependencies with sensitive peer dependencies.
 
 ## Sources
 
-- Lire release notes et guides officiels pour la cible.
-- Vérifier breaking changes et migrations documentées.
-- Vérifier codemods officiels si disponibles.
-- Utiliser sources primaires quand une information peut avoir changé.
+- Read official release notes and guides for the target.
+- Check breaking changes and documented migrations.
+- Check official codemods if available.
+- Use primary sources when information may have changed.
 
-## Stratégie
+## Strategy
 
-- Préférer upgrade incrémental.
-- Séparer Node.js, Next.js, React, TypeScript et dépendances risquées si possible.
-- Respecter le lockfile et le package manager existants.
-- Ne pas modifier le lockfile à la main.
-- Prévoir stratégie de rollback.
-- Tester App Router et Pages Router selon l'architecture réelle.
+- Prefer incremental upgrades.
+- Separate Node.js, Next.js, React, TypeScript, and risky dependencies when possible.
+- Respect the existing lockfile and package manager.
+- Do not modify the lockfile by hand.
+- Plan a rollback strategy.
+- Test App Router and Pages Router according to the real architecture.
 
-## Points D'Attention
+## Watch Points
 
-- Breaking changes Next.js : config, routing, cache, image, middleware, server actions.
-- React : rendu, strict mode, hooks, hydratation, types.
-- TypeScript : options plus strictes, types React/Node.
-- Peer dependencies : eslint, testing-library, storybook, bundler.
-- Codemods : les lancer en dry-run si possible, relire le diff.
-- CI/CD : version Node, cache dependencies, build command.
+- Next.js breaking changes: config, routing, cache, image, middleware, server actions.
+- React: rendering, strict mode, hooks, hydration, types.
+- TypeScript: stricter options, React/Node types.
+- Peer dependencies: eslint, testing-library, Storybook, bundler.
+- Codemods: run them in dry-run mode when possible, review the diff.
+- CI/CD: Node version, dependency cache, build command.
 
-## Commandes Utiles
+## Useful Commands
 
-Adapter au projet :
+Adapt to the project:
 
 - `<package-manager> outdated`
 - `<package-manager> why <package>`
-- `<package-manager> install --lockfile-only` si validé
-- Codemod officiel en dry-run si disponible
+- `<package-manager> install --lockfile-only` if validated
+- Official codemod in dry-run mode if available
 - `<package-manager> run typecheck`
 - `<package-manager> run lint`
 - `<package-manager> run test`
 - `<package-manager> run build`
 
-Ne pas lancer commande de mise à jour effective sans validation explicite.
+Do not run an effective update command without explicit validation.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas faire un saut majeur non demandé.
-- Ne pas mélanger upgrade et refactor large.
-- Ne pas changer de router Next.js.
-- Ne pas ajouter ou supprimer une dépendance sans preuve et validation.
-- Ne pas ignorer peer dependencies ou tests cassés.
-- Ne pas modifier `.env` ou secrets.
+- Do not make an unrequested major jump.
+- Do not mix upgrade and broad refactor.
+- Do not change Next.js router.
+- Do not add or remove a dependency without proof and validation.
+- Do not ignore peer dependencies or broken tests.
+- Do not modify `.env` or secrets.
 
-## Format De Sortie
+## Output Format
 
-Pour un diagnostic :
+For a diagnosis:
 
-- **État actuel**
-- **Cible demandée ou recommandée**
+- **Current state**
+- **Requested or recommended target**
 - **Breaking changes**
-- **Peer dependencies et blockers**
-- **Fichiers impactés**
-- **Plan d'exécution ordonné**
+- **Peer dependencies and blockers**
+- **Impacted files**
+- **Ordered execution plan**
 - **Tests/build**
 - **Rollback**
-- **Décisions à valider**
+- **Decisions to validate**
 
-Après application validée :
+After validated application:
 
-- **Fichiers modifiés**
-- **Dépendances mises à jour**
-- **Corrections appliquées**
-- **Commandes lancées**
-- **Risques ou étapes restantes**
+- **Modified files**
+- **Updated dependencies**
+- **Applied fixes**
+- **Commands run**
+- **Risks or remaining steps**

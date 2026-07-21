@@ -1,72 +1,72 @@
 ---
 name: performance
-description: "Audite et optimise la performance React/Next.js avec mesures avant optimisation. Couvre rendu React, hydratation, Server/Client Components, bundle JavaScript, imports, images, fonts, cache, requêtes en cascade, Core Web Vitals, listes volumineuses, memoization justifiée et build de production."
+description: "Audits and optimizes React/Next.js performance with measurements before optimization. Covers React rendering, hydration, Server/Client Components, JavaScript bundle, imports, images, fonts, cache, request waterfalls, Core Web Vitals, large lists, justified memoization, and production build."
 ---
 
-# Performance React / Next.js
+# React / Next.js Performance
 
-## Périmètre
+## Scope
 
-Si l'utilisateur précise une page, composant, route, diff ou métrique, analyser
-uniquement ce périmètre. Sinon demander le symptôme : lenteur, bundle, LCP, CLS,
-INP, hydratation, requêtes, build.
+If the user specifies a page, component, route, diff, or metric, analyze only
+that scope. Otherwise ask for the symptom: slowness, bundle, LCP, CLS, INP,
+hydration, requests, build.
 
-Ne pas modifier le code pendant un audit sauf demande explicite.
+Do not modify code during an audit unless explicitly requested.
 
-## Mesurer Avant D'Optimiser
+## Measure Before Optimizing
 
-Chercher une preuve :
+Look for evidence:
 
-- Core Web Vitals : LCP, CLS, INP, TTFB.
-- Taille JS par route ou chunk.
-- Nombre de rendus et coût React.
-- Durée d'hydratation.
-- Requêtes réseau et waterfalls.
-- Cache hit/miss ou revalidation.
-- Taille et dimensions images/fonts.
-- Temps `next build`.
+- Core Web Vitals: LCP, CLS, INP, TTFB.
+- JS size by route or chunk.
+- Number of renders and React cost.
+- Hydration duration.
+- Network requests and waterfalls.
+- Cache hit/miss or revalidation.
+- Image/font size and dimensions.
+- `next build` time.
 
-Si la mesure directe est impossible, séparer clairement hypothèse et preuve.
+If direct measurement is impossible, clearly separate hypothesis and evidence.
 
-## Points D'Analyse
+## Analysis Points
 
-- Rendu React : re-renders globaux, props instables, providers trop hauts.
-- Hydratation : surface client excessive, mismatch, composants lourds.
-- Server/Client Components : logique client inutile, imports serveur/client.
-- Bundle : dépendances lourdes, imports barrel, dynamic import, tree shaking.
-- Images et fonts : `next/image`, dimensions, formats, priority, preload, font display.
-- Cache : `fetch` cache, ISR, CDN, SWR/TanStack Query, invalidation.
-- Requêtes en cascade : waterfalls, duplication serveur/client, absence de parallélisation.
-- Listes volumineuses : pagination, virtualisation si déjà acceptée, rendu borné.
-- Memoization : `memo`, `useMemo`, `useCallback` seulement avec cause prouvée.
-- Build production : analyser `next build`, analyzer si déjà configuré.
+- React rendering: global re-renders, unstable props, providers too high.
+- Hydration: excessive client surface, mismatch, heavy components.
+- Server/Client Components: unnecessary client logic, server/client imports.
+- Bundle: heavy dependencies, barrel imports, dynamic import, tree shaking.
+- Images and fonts: `next/image`, dimensions, formats, priority, preload, font display.
+- Cache: `fetch` cache, ISR, CDN, SWR/TanStack Query, invalidation.
+- Request waterfalls: waterfalls, server/client duplication, lack of parallelization.
+- Large lists: pagination, virtualization if already accepted, bounded rendering.
+- Memoization: `memo`, `useMemo`, `useCallback` only with proven cause.
+- Production build: analyze `next build`, analyzer if already configured.
 
-## Corrections Attendues
+## Expected Fixes
 
-- Réduire la surface client avant de memoizer partout.
-- Déplacer au serveur ce qui n'a pas besoin du navigateur.
-- Diviser les imports lourds ou charger à la demande.
-- Ajouter cache avec stratégie d'invalidation claire.
-- Optimiser images/fonts selon les primitives existantes.
-- Supprimer requêtes dupliquées ou waterfalls prouvés.
+- Reduce the client surface before memoizing everywhere.
+- Move to the server what does not need the browser.
+- Split heavy imports or load on demand.
+- Add cache with a clear invalidation strategy.
+- Optimize images/fonts according to existing primitives.
+- Remove proven duplicate requests or waterfalls.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas optimiser sans preuve ou hypothèse explicitement annoncée.
-- Ne pas ajouter memoization spéculative.
-- Ne pas ajouter cache sans invalidation ou fraîcheur définie.
-- Ne pas dégrader accessibilité ou comportement métier pour gagner du temps.
-- Ne pas ajouter de dépendance d'analyse ou runtime sans confirmation.
+- Do not optimize without evidence or an explicitly stated hypothesis.
+- Do not add speculative memoization.
+- Do not add cache without defined invalidation or freshness.
+- Do not degrade accessibility or business behavior to save time.
+- Do not add an analysis or runtime dependency without confirmation.
 
-## Format De Sortie
+## Output Format
 
-Présenter les findings par sévérité :
+Present findings by severity:
 
-- **Fichier et ligne**
-- **Type** : rendu, hydratation, bundle, image, cache, réseau, Core Web Vitals
-- **Preuve ou mesure**
+- **File and line**
+- **Type**: rendering, hydration, bundle, image, cache, network, Core Web Vitals
+- **Evidence or measurement**
 - **Impact**
-- **Cause racine**
-- **Correction proposée**
-- **Validation conseillée**
-- **Gain attendu** si estimable
+- **Root cause**
+- **Proposed fix**
+- **Recommended validation**
+- **Expected gain** if estimable

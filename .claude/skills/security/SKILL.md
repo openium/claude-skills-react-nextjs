@@ -1,93 +1,93 @@
 ---
 name: security
-description: "Audite la sécurité d'un projet React et Next.js. Couvre XSS, validation serveur, authentification, autorisation, IDOR, CSRF selon architecture, redirections ouvertes, injection, uploads, cookies, headers, Server Actions, routes API, NEXT_PUBLIC_*, secrets dans le bundle, dépendances vulnérables et logs sensibles."
+description: "Audits the security of a React and Next.js project. Covers XSS, server validation, authentication, authorization, IDOR, CSRF according to architecture, open redirects, injection, uploads, cookies, headers, Server Actions, API routes, NEXT_PUBLIC_*, secrets in the bundle, vulnerable dependencies, and sensitive logs."
 ---
 
-# Sécurité React / Next.js
+# React / Next.js Security
 
-## Périmètre
+## Scope
 
-Par défaut, analyser les fichiers modifiés. Si l'utilisateur précise un fichier,
-dossier, route, PR ou flux, limiter l'audit à ce périmètre.
+By default, analyze modified files. If the user specifies a file, folder, route,
+PR, or flow, limit the audit to that scope.
 
-Ne jamais lire, afficher ou recopier `.env` ni les fichiers d'environnement
-sensibles. Ne jamais afficher de secret pendant l'audit.
+Never read, display, or copy `.env` or sensitive environment files. Never
+display a secret during the audit.
 
-## Contexte À Inspecter
+## Context To Inspect
 
-- `package.json` et lockfile pour dépendances.
+- `package.json` and lockfile for dependencies.
 - `next.config.*`, middleware, headers, redirects.
-- Route Handlers, API routes, Server Actions, services auth.
-- Composants client exposant des données.
-- Logs, analytics, observabilité.
-- Uploads, formulaires, validations runtime.
+- Route Handlers, API routes, Server Actions, auth services.
+- Client components exposing data.
+- Logs, analytics, observability.
+- Uploads, forms, runtime validations.
 
-## Critères D'Analyse
+## Analysis Criteria
 
 ### XSS
 
-- `dangerouslySetInnerHTML` sans sanitation prouvée.
-- Injection dans URL, HTML, Markdown, script, analytics ou attribut.
-- Données utilisateur rendues dans un contexte non échappé.
+- `dangerouslySetInnerHTML` without proven sanitization.
+- Injection into URL, HTML, Markdown, script, analytics, or attribute.
+- User data rendered in an unescaped context.
 
-### Validation Serveur
+### Server Validation
 
-- Validation uniquement côté client.
-- Payload externe traité sans validation runtime.
-- TypeScript utilisé comme unique barrière à l'entrée runtime.
+- Client-side-only validation.
+- External payload processed without runtime validation.
+- TypeScript used as the only barrier for runtime input.
 
-### Authentification, Autorisation, IDOR
+### Authentication, Authorization, IDOR
 
-- Route API, Server Action ou page sensible sans contrôle d'accès.
-- Accès ressource par id sans vérifier propriétaire, tenant ou rôle.
-- Données utilisateur trop larges retournées au client.
+- Sensitive API route, Server Action, or page without access control.
+- Resource access by id without checking owner, tenant, or role.
+- Excessive user data returned to the client.
 
-### CSRF, Cookies Et Headers
+### CSRF, Cookies, And Headers
 
-- Mutation cookie/session sans protection adaptée à l'architecture.
-- Cookie sensible sans `HttpOnly`, `Secure`, `SameSite` approprié.
-- Headers sécurité absents ou affaiblis si le projet les gère.
+- Cookie/session mutation without protection suited to the architecture.
+- Sensitive cookie without appropriate `HttpOnly`, `Secure`, `SameSite`.
+- Security headers absent or weakened if the project manages them.
 
-### Redirections Et Injection
+### Redirects And Injection
 
-- Redirection ouverte via paramètre non validé.
-- URL externe, commande, regex ou requête construite avec entrée utilisateur non validée.
+- Open redirect through an unvalidated parameter.
+- External URL, command, regex, or query built with unvalidated user input.
 
 ### Uploads
 
-- Type MIME, extension, taille ou nom de fichier non validés côté serveur.
-- Upload dans chemin public dangereux.
-- Fichier traité sans antivirus/sandbox si le contexte l'exige.
+- MIME type, extension, size, or filename not validated server-side.
+- Upload into a dangerous public path.
+- File processed without antivirus/sandbox if the context requires it.
 
-### Next.js Et Bundle
+### Next.js And Bundle
 
-- Secret importé dans un Client Component.
-- Variable passée en `NEXT_PUBLIC_*` sans preuve qu'elle peut être publique.
-- Token, cookie, DSN ou clé API dans le bundle.
-- Server Action exposant une opération sans validation ou autorisation.
+- Secret imported into a Client Component.
+- Variable passed as `NEXT_PUBLIC_*` without proof that it may be public.
+- Token, cookie, DSN, or API key in the bundle.
+- Server Action exposing an operation without validation or authorization.
 
-### Dépendances Et Logs
+### Dependencies And Logs
 
-- Dépendance vulnérable ou lockfile absent.
-- Données personnelles, tokens, cookies ou Authorization dans logs/analytics.
-- Source maps publiques exposant des informations sensibles si cela concerne le projet.
+- Vulnerable dependency or missing lockfile.
+- Personal data, tokens, cookies, or Authorization in logs/analytics.
+- Public source maps exposing sensitive information if relevant to the project.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas afficher de secret pour prouver une fuite.
-- Ne pas lire `.env`.
-- Ne pas corriger automatiquement sans demande.
-- Ne pas recommander une dépendance de sécurité sans justification et validation.
-- Ne pas ignorer une validation serveur parce qu'une validation client existe.
+- Do not display a secret to prove a leak.
+- Do not read `.env`.
+- Do not fix automatically without a request.
+- Do not recommend a security dependency without justification and validation.
+- Do not ignore server validation because client validation exists.
 
-## Format De Sortie
+## Output Format
 
-Pour chaque vulnérabilité :
+For each vulnerability:
 
-- **Fichier et ligne**
-- **Catégorie**
-- **Sévérité** : bloquant, important ou suggestion
-- **Preuve vérifiée** sans recopier de secret
-- **Scénario d'exploitation réaliste**
-- **Correction proposée**
-- **Test ou vérification de non-régression**
+- **File and line**
+- **Category**
+- **Severity**: blocking, important, or suggestion
+- **Verified evidence** without copying a secret
+- **Realistic exploitation scenario**
+- **Proposed fix**
+- **Regression test or check**

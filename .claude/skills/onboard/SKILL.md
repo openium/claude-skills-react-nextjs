@@ -1,20 +1,20 @@
 ---
 name: onboard
-description: "Produit un guide d'onboarding technique à partir d'un projet React/Next.js existant. Analyse architecture, versions, installation, commandes, routing, composants, données, authentification, tests, conventions, CI/CD, observabilité et pièges connus sans lire les fichiers d'environnement sensibles."
+description: "Produces a technical onboarding guide from an existing React/Next.js project. Analyzes architecture, versions, installation, commands, routing, components, data, authentication, tests, conventions, CI/CD, observability, and known pitfalls without reading sensitive environment files."
 ---
 
-# Onboarding Technique React / Next.js
+# React / Next.js Technical Onboarding
 
-## Périmètre
+## Scope
 
-Par défaut, produire un guide pour le projet entier. Si l'utilisateur précise un
-module, dossier ou objectif, limiter l'onboarding à ce périmètre.
+By default, produce a guide for the whole project. If the user specifies a
+module, folder, or goal, limit onboarding to that scope.
 
-Ne pas modifier le repository, sauf demande explicite.
+Do not modify the repository unless explicitly requested.
 
-## Sources À Inspecter
+## Sources To Inspect
 
-Lire selon leur présence :
+Read when present:
 
 - `README*`, `docs/`
 - `package.json`, lockfile
@@ -23,74 +23,74 @@ Lire selon leur présence :
 - `app/`, `pages/`, `src/`, `components/`, `lib/`, `services/`, `hooks/`
 - `public/`, styles, design system
 - tests, Storybook, Playwright/Cypress
-- `.github/workflows/`, `.gitlab-ci.yml`, config déploiement
-- `.env.example` ou documentation d'environnement si non sensible
+- `.github/workflows/`, `.gitlab-ci.yml`, deployment config
+- `.env.example` or environment documentation if non-sensitive
 
-Ne jamais lire ni recopier `.env` ou fichiers d'environnement sensibles.
+Never read or copy `.env` or sensitive environment files.
 
-## Règles
+## Rules
 
-- Documenter seulement ce qui est vérifiable dans le repo.
-- Distinguer faits vérifiés et points à confirmer.
-- Citer les fichiers sources consultés quand utile.
-- Ne pas inventer de commandes : utiliser scripts `package.json`, Makefile ou CI existants.
-- Si README, Docker, scripts et CI se contredisent, signaler l'écart.
-- Documenter les variables d'environnement par nom et rôle seulement si source non sensible.
-- Si un secret semble committé, le signaler sans le recopier.
+- Document only what is verifiable in the repo.
+- Distinguish verified facts from points to confirm.
+- Cite consulted source files when useful.
+- Do not invent commands: use existing `package.json`, Makefile, or CI scripts.
+- If README, Docker, scripts, and CI contradict each other, report the mismatch.
+- Document environment variables by name and role only if the source is non-sensitive.
+- If a secret appears to be committed, report it without copying it.
 
-## Sections Du Guide
+## Guide Sections
 
-### Vue D'Ensemble
+### Overview
 
-Objectif du projet, type d'application, domaines principaux, services externes.
+Project purpose, application type, main domains, external services.
 
-### Stack Et Versions
+### Stack And Versions
 
-Node.js, package manager, React, Next.js, TypeScript, styles, tests, outils.
+Node.js, package manager, React, Next.js, TypeScript, styles, tests, tools.
 
-### Installation Et Commandes
+### Installation And Commands
 
-Prérequis, installation, démarrage local, build, tests, lint, storybook si présent.
+Prerequisites, installation, local startup, build, tests, lint, Storybook if present.
 
 ### Architecture
 
-Structure des dossiers, conventions, séparation UI/data/domain, providers.
+Folder structure, conventions, UI/data/domain separation, providers.
 
 ### Routing
 
-App Router, Pages Router ou hybride, routes principales, API routes, middleware.
+App Router, Pages Router, or hybrid, main routes, API routes, middleware.
 
-### Composants Et Design System
+### Components And Design System
 
-Organisation des composants, primitives UI, styles, responsive, accessibilité.
+Component organization, UI primitives, styles, responsive behavior, accessibility.
 
-### Données Et Authentification
+### Data And Authentication
 
-Data fetching, cache, mutations, auth/session, clients API, données sensibles.
+Data fetching, cache, mutations, auth/session, API clients, sensitive data.
 
-### Tests Et Qualité
+### Tests And Quality
 
-Jest/Vitest, Testing Library, E2E, lint, typecheck, conventions de test.
+Jest/Vitest, Testing Library, E2E, lint, typecheck, test conventions.
 
-### CI/CD Et Déploiement
+### CI/CD And Deployment
 
-Pipelines, variables, build, preview, production, rollback si vérifiable.
+Pipelines, variables, build, preview, production, rollback if verifiable.
 
-### Observabilité
+### Observability
 
-Logs, Sentry/APM, analytics, source maps, alertes si présents.
+Logs, Sentry/APM, analytics, source maps, alerts if present.
 
-### Pièges Connus
+### Known Pitfalls
 
-TODO/FIXME, documentation contradictoire, zones legacy, limites de tests.
+TODO/FIXME, contradictory documentation, legacy areas, test limitations.
 
-## Format De Sortie
+## Output Format
 
-Produire un document Markdown factuel et concis avec :
+Produce a factual and concise Markdown document with:
 
-- commandes utiles en blocs `sh` ;
-- références aux fichiers consultés quand pertinent ;
-- section **À confirmer** ;
-- section **Écarts ou manques de documentation** si nécessaire.
+- useful commands in `sh` blocks;
+- references to consulted files when relevant;
+- **To Confirm** section;
+- **Documentation Gaps Or Mismatches** section if necessary.
 
-Ne pas inclure de secrets ni de contenu de fichiers d'environnement sensibles.
+Do not include secrets or sensitive environment file content.

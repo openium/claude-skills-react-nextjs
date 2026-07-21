@@ -1,56 +1,56 @@
 ---
 name: accessibility
-description: "Audite ou améliore l'accessibilité d'une interface React/Next.js. Couvre HTML sémantique, clavier, focus, labels, formulaires, modales, menus, contraste, alternatives textuelles, annonces dynamiques, responsive/zoom, tests automatisés et vérification manuelle."
+description: "Audits or improves the accessibility of a React/Next.js interface. Covers semantic HTML, keyboard, focus, labels, forms, modals, menus, contrast, text alternatives, dynamic announcements, responsive/zoom behavior, automated tests, and manual verification."
 ---
 
-# Accessibilité React / Next.js
+# React / Next.js Accessibility
 
-## Périmètre
+## Scope
 
-Analyser un diff, une page, un composant ou un parcours utilisateur. Si aucun
-périmètre n'est donné, demander la page ou le composant à auditer.
+Analyze a diff, page, component, or user journey. If no scope is given, ask for
+the page or component to audit.
 
-## Sévérités
+## Severities
 
-- **Bloquant** : parcours impossible au clavier, champ sans nom, focus perdu, action inaccessible, contenu critique non annoncé.
-- **Important** : expérience dégradée pour lecteur d'écran, contraste insuffisant, erreur de formulaire mal associée.
-- **Suggestion** : amélioration de confort, libellé plus clair, structure plus robuste.
+- **Blocking**: impossible keyboard journey, field without a name, lost focus, inaccessible action, critical content not announced.
+- **Important**: degraded screen reader experience, insufficient contrast, poorly associated form error.
+- **Suggestion**: comfort improvement, clearer label, more robust structure.
 
-## Points D'Analyse
+## Analysis Points
 
-- HTML sémantique : boutons, liens, headings, listes, landmarks.
-- Navigation clavier : tab order, activation Entrée/Espace, Escape, raccourcis.
-- Focus : visible, initial, retour après fermeture, pièges de focus.
-- Labels et descriptions : nom accessible, `aria-describedby`, aide contextuelle.
-- Formulaires : erreurs associées, résumé d'erreurs, `autoComplete`, required.
-- Modales et menus : role adapté, focus trap, fermeture, état ouvert/fermé.
-- Contraste : texte, icônes informatives, focus ring, états disabled.
-- Alternatives textuelles : images, icônes, loaders, graphiques.
-- Annonces dynamiques : loading, succès, erreurs, changements de contenu.
-- Responsive et zoom : 200%, mobile, orientation, texte non tronqué.
+- Semantic HTML: buttons, links, headings, lists, landmarks.
+- Keyboard navigation: tab order, Enter/Space activation, Escape, shortcuts.
+- Focus: visible, initial, return after close, focus traps.
+- Labels and descriptions: accessible name, `aria-describedby`, contextual help.
+- Forms: associated errors, error summary, `autoComplete`, required.
+- Modals and menus: appropriate role, focus trap, close behavior, open/closed state.
+- Contrast: text, informative icons, focus ring, disabled states.
+- Text alternatives: images, icons, loaders, charts.
+- Dynamic announcements: loading, success, errors, content changes.
+- Responsive and zoom: 200%, mobile, orientation, non-truncated text.
 
-## Tests Et Vérifications
+## Tests And Checks
 
-- Utiliser Testing Library avec requêtes accessibles.
-- Lancer axe, jest-axe, Storybook a11y ou Playwright a11y seulement si présents.
-- Prévoir une vérification manuelle clavier et lecteur d'écran pour les patterns complexes.
-- Ne pas se limiter à un score automatisé : vérifier le parcours réel.
+- Use Testing Library with accessible queries.
+- Run axe, jest-axe, Storybook a11y, or Playwright a11y only if present.
+- Plan a manual keyboard and screen reader check for complex patterns.
+- Do not stop at an automated score: verify the real journey.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas ajouter ARIA pour compenser un mauvais élément HTML si un élément natif convient.
-- Ne pas supprimer outline/focus visible.
-- Ne pas masquer une erreur seulement visuellement.
-- Ne pas rendre un `div` cliquable sans rôle, tabIndex et gestion clavier.
-- Ne pas introduire une librairie a11y sans confirmation.
+- Do not add ARIA to compensate for the wrong HTML element when a native element fits.
+- Do not remove visible outline/focus.
+- Do not hide an error only visually.
+- Do not make a `div` clickable without role, tabIndex, and keyboard handling.
+- Do not introduce an a11y library without confirmation.
 
-## Format De Sortie
+## Output Format
 
-Présenter les findings par sévérité :
+Present findings by severity:
 
-- **Fichier et ligne**
-- **Sévérité**
-- **Preuve**
-- **Impact utilisateur**
-- **Correction proposée**
-- **Test ou vérification conseillé**
+- **File and line**
+- **Severity**
+- **Evidence**
+- **User impact**
+- **Proposed fix**
+- **Recommended test or check**

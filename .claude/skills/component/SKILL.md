@@ -1,95 +1,94 @@
 ---
 name: component
-description: "Crée ou modifie un composant React/TypeScript/Next.js conforme au design system existant. À utiliser pour composants UI, API de props, variants, composition, responsive, états loading/empty/error/disabled, accessibilité, focus, tests et Storybook si déjà installé."
+description: "Creates or modifies a React/TypeScript/Next.js component that complies with the existing design system. Use for UI components, prop APIs, variants, composition, responsive behavior, loading/empty/error/disabled states, accessibility, focus, tests, and Storybook if already installed."
 ---
 
-# Composants React / Next.js
+# React / Next.js Components
 
-## Périmètre
+## Scope
 
-Créer ou modifier un composant en respectant le design system, les patterns et
-les dépendances déjà présents.
+Create or modify a component while respecting the existing design system,
+patterns, and dependencies.
 
-Ne pas introduire une nouvelle bibliothèque UI sans confirmation explicite.
+Do not introduce a new UI library without explicit confirmation.
 
-## État Des Lieux
+## Current State
 
-Avant d'écrire :
+Before writing:
 
-- Chercher les composants voisins et usages similaires.
-- Identifier style system : CSS Modules, Tailwind, Sass, styled-components, MUI, shadcn/ui, autre.
-- Vérifier conventions de dossier, exports, tests et Storybook.
-- Détecter si le composant doit être Server Component ou Client Component.
-- Lire les tokens, variants ou primitives UI existants.
+- Search for neighboring components and similar usages.
+- Identify the style system: CSS Modules, Tailwind, Sass, styled-components, MUI, shadcn/ui, other.
+- Check folder, export, test, and Storybook conventions.
+- Detect whether the component should be a Server Component or Client Component.
+- Read existing tokens, variants, or UI primitives.
 
-## API Du Composant
+## Component API
 
-- Définir des props minimales, typées et stables.
-- Préférer composition (`children`, slots existants) à une API trop large.
-- Gérer variants seulement s'ils correspondent au design system.
-- Nommer les props selon les composants existants.
-- Éviter d'exposer des détails internes de style ou d'état.
+- Define minimal, typed, and stable props.
+- Prefer composition (`children`, existing slots) over an overly broad API.
+- Handle variants only if they match the design system.
+- Name props according to existing components.
+- Avoid exposing internal style or state details.
 
-## États UI
+## UI States
 
-Prévoir selon le besoin :
+Cover as needed:
 
-- loading ;
-- empty ;
-- error ;
-- disabled ;
-- selected/active ;
-- focus/hover ;
+- loading;
+- empty;
+- error;
+- disabled;
+- selected/active;
+- focus/hover;
 - responsive.
 
-Ne pas inventer d'états si le design existant ne les prévoit pas, mais signaler
-les manques qui bloquent l'usage.
+Do not invent states if the existing design does not account for them, but call
+out gaps that block usage.
 
-## Accessibilité Et Focus
+## Accessibility And Focus
 
-- Utiliser HTML sémantique avant ARIA.
-- Fournir label, nom accessible et description si nécessaire.
-- Gérer focus visible, ordre clavier, `aria-*`, `role` seulement quand utile.
-- Pour modales, menus, popovers : focus initial, retour focus, Escape, navigation clavier.
-- Ne pas remplacer un bouton par un `div` cliquable.
+- Use semantic HTML before ARIA.
+- Provide a label, accessible name, and description when needed.
+- Handle visible focus, keyboard order, `aria-*`, and `role` only when useful.
+- For modals, menus, popovers: initial focus, focus return, Escape, keyboard navigation.
+- Do not replace a button with a clickable `div`.
 
 ## Next.js
 
-- Garder Server Component par défaut si aucune API client n'est nécessaire.
-- Ajouter `"use client"` uniquement au fichier qui utilise état, effets, événements ou API navigateur.
-- Ne pas importer un module serveur dans un composant client.
-- Utiliser `next/image`, `next/link` ou primitives existantes selon le projet.
+- Keep a Server Component by default if no client API is required.
+- Add `"use client"` only to the file that uses state, effects, events, or browser APIs.
+- Do not import a server module into a client component.
+- Use `next/image`, `next/link`, or existing primitives according to the project.
 
-## Galerie De Composants
+## Component Gallery
 
-Si le projet dispose d'une page galerie (démarrage depuis un boilerplate),
-référencer chaque composant réutilisable créé ou modifié avec tous ses états
-visibles (loading, empty, error, disabled, variants). Cette page sert de
-vérification visuelle. Ne pas la créer si le projet n'en a pas et si ce n'est
-pas demandé.
+If the project has a gallery page (started from a boilerplate), reference every
+reusable component created or modified with all its visible states (loading,
+empty, error, disabled, variants). This page is used for visual verification. Do
+not create it if the project does not have one and it was not requested.
 
-## Tests Et Storybook
+## Tests And Storybook
 
-- Ajouter ou adapter un test de composant si le projet utilise Jest/Vitest et Testing Library.
-- Tester comportement et accessibilité observable, pas l'implémentation interne.
-- Utiliser `userEvent` pour interactions.
-- Ajouter une story seulement si Storybook est déjà installé et utilisé.
+- Add or adapt a component test if the project uses Jest/Vitest and Testing Library.
+- Test observable behavior and accessibility, not internal implementation.
+- Use `userEvent` for interactions.
+- Add a story only if Storybook is already installed and used.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas ajouter de nouvelle librairie UI sans confirmation.
-- Ne pas créer un design parallèle au design system.
-- Ne pas ajouter `"use client"` à toute une arborescence.
-- Ne pas ignorer loading, error, disabled ou accessibilité quand le composant est interactif.
-- Ne pas modifier les composants voisins sans lien direct.
+- Do not add a new UI library without confirmation.
+- Do not create a design parallel to the design system.
+- Do not add `"use client"` to an entire tree.
+- Do not ignore loading, error, disabled, or accessibility when the component is interactive.
+- Do not modify neighboring components without a direct link.
 
-## Format De Sortie
+## Output Format
 
-Résumer :
+Summarize:
 
-- **Composant créé ou modifié**
-- **API de props**
-- **États couverts**
-- **Accessibilité et focus**
+- **Component created or modified**
+- **Prop API**
+- **States covered**
+- **Accessibility and focus**
 - **Tests/Storybook**
-- **Limites ou décisions à valider**
+- **Limits or decisions to validate**

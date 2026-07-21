@@ -1,105 +1,103 @@
 # Claude Skills React/Next.js
 
-Ce dépôt contient des skills Claude Code pour React, TypeScript et Next.js.
+This repository contains Claude Code skills for React, TypeScript, and Next.js.
 
-Les skills sont installés dans le dossier `.claude/skills/`. Chaque skill
-possède un fichier `SKILL.md` qui décrit son usage, ses règles et ses
-conventions.
+Skills are installed in the `.claude/skills/` folder. Each skill has a
+`SKILL.md` file that describes its usage, rules, and conventions.
 
-Pour utiliser un skill dans un projet, copiez son dossier dans
-`.claude/skills/` à la racine du projet cible. Pour installer l'ensemble des
-skills, copiez tout le contenu de ce dépôt vers le dossier `.claude/skills/` du
-projet cible.
+To use a skill in a project, copy its folder into `.claude/skills/` at the root
+of the target project. To install all skills, copy the entire contents of this
+repository into the target project's `.claude/skills/` folder.
 
-Les conventions détaillées seront ajoutées progressivement.
+Detailed conventions will be added progressively.
 
-## Skills Disponibles
+## Available Skills
 
-### Qualité De Code
+### Code Quality
 
 | Skill | Description |
 |-------|-------------|
-| [`/review`](.claude/skills/review/SKILL.md) | Revue de code React/Next.js : bugs, typage, Server/Client Components, sécurité, accessibilité, performance, tests. |
-| [`/refactor`](.claude/skills/refactor/SKILL.md) | Refactoring sûr de composants, hooks et code TypeScript sans changement de comportement observable. |
+| [`/review`](.claude/skills/review/SKILL.md) | React/Next.js code review: bugs, typing, Server/Client Components, security, accessibility, performance, tests. |
+| [`/refactor`](.claude/skills/refactor/SKILL.md) | Safe refactoring of components, hooks, and TypeScript code without observable behavior changes. |
 
-### UI, Données Et Tests
-
-| Skill | Description |
-|-------|-------------|
-| [`/component`](.claude/skills/component/SKILL.md) | Création ou modification de composants conformes au design system existant. |
-| [`/data-fetching`](.claude/skills/data-fetching/SKILL.md) | Stratégie de chargement, cache, revalidation, pagination et erreurs côté serveur ou client. |
-| [`/forms`](.claude/skills/forms/SKILL.md) | Formulaires React/Next.js : validation, soumission, erreurs, accessibilité et tests. |
-| [`/test`](.claude/skills/test/SKILL.md) | Tests unitaires et composants avec Jest/Vitest et React Testing Library selon le projet. |
-
-### Sécurité, Performance Et Observabilité
+### UI, Data, And Tests
 
 | Skill | Description |
 |-------|-------------|
-| [`/accessibility`](.claude/skills/accessibility/SKILL.md) | Audit accessibilité : sémantique, clavier, focus, formulaires, contraste et vérifications. |
-| [`/security`](.claude/skills/security/SKILL.md) | Audit sécurité React/Next.js : XSS, auth, IDOR, CSRF, secrets, routes API et dépendances. |
-| [`/performance`](.claude/skills/performance/SKILL.md) | Audit performance : rendu, hydratation, bundle, cache, images, fonts et Core Web Vitals. |
-| [`/observability`](.claude/skills/observability/SKILL.md) | Logs, erreurs, traces, métriques, Sentry/APM, alertes et protection des données sensibles. |
+| [`/component`](.claude/skills/component/SKILL.md) | Creates or modifies components that comply with the existing design system. |
+| [`/data-fetching`](.claude/skills/data-fetching/SKILL.md) | Loading, cache, revalidation, pagination, and error strategy on the server or client side. |
+| [`/forms`](.claude/skills/forms/SKILL.md) | React/Next.js forms: validation, submission, errors, accessibility, and tests. |
+| [`/test`](.claude/skills/test/SKILL.md) | Unit and component tests with Jest/Vitest and React Testing Library according to the project. |
 
-### Planification Et Onboarding
+### Security, Performance, And Observability
 
 | Skill | Description |
 |-------|-------------|
-| [`/plan`](.claude/skills/plan/SKILL.md) | Plan d'implémentation React/Next.js avant code : étapes, fichiers, tests, validations, risques. |
-| [`/debug`](.claude/skills/debug/SKILL.md) | Diagnostic reproductible d'erreurs frontend ou Next.js sans correction automatique. |
-| [`/upgrade`](.claude/skills/upgrade/SKILL.md) | Plan d'upgrade Node.js, React, Next.js, TypeScript et dépendances frontend. |
-| [`/onboard`](.claude/skills/onboard/SKILL.md) | Guide d'onboarding technique pour un projet React/Next.js existant. |
+| [`/accessibility`](.claude/skills/accessibility/SKILL.md) | Accessibility audit: semantics, keyboard, focus, forms, contrast, and checks. |
+| [`/security`](.claude/skills/security/SKILL.md) | React/Next.js security audit: XSS, auth, IDOR, CSRF, secrets, API routes, and dependencies. |
+| [`/performance`](.claude/skills/performance/SKILL.md) | Performance audit: rendering, hydration, bundle, cache, images, fonts, and Core Web Vitals. |
+| [`/observability`](.claude/skills/observability/SKILL.md) | Logs, errors, traces, metrics, Sentry/APM, alerts, and sensitive data protection. |
 
-## Exemples D'Invocation
+### Planning And Onboarding
 
-| Besoin | Skill | Exemple |
-|--------|-------|---------|
-| Relire un diff avant commit | `/review` | `/review analyse le diff staged avant commit` |
-| Diagnostiquer une erreur | `/debug` | `/debug analyse cette erreur d'hydratation Next.js` |
-| Simplifier un composant | `/refactor` | `/refactor simplifie components/ProductCard.tsx sans changer le comportement` |
-| Créer un composant | `/component` | `/component crée un composant Modal conforme au design system` |
-| Corriger un chargement de données | `/data-fetching` | `/data-fetching corrige la revalidation de la liste produits` |
-| Ajouter un formulaire | `/forms` | `/forms crée le formulaire de contact avec validation serveur` |
-| Ajouter des tests | `/test` | `/test ajoute les tests du composant ProductCard` |
-| Auditer l'accessibilité | `/accessibility` | `/accessibility audite le formulaire de checkout` |
-| Auditer la sécurité | `/security` | `/security audite les routes API modifiées` |
-| Diagnostiquer une lenteur | `/performance` | `/performance analyse le bundle de la page dashboard` |
-| Améliorer les logs | `/observability` | `/observability propose les logs utiles autour de la Server Action de paiement` |
-| Planifier une feature ou un bugfix | `/plan` | `/plan prépare l'implémentation de <feature-ou-bugfix>` |
-| Préparer un upgrade | `/upgrade` | `/upgrade prépare le passage à Next.js <version>` |
-| Documenter un projet | `/onboard` | `/onboard génère un guide pour un nouveau développeur` |
+| Skill | Description |
+|-------|-------------|
+| [`/plan`](.claude/skills/plan/SKILL.md) | React/Next.js implementation plan before coding: steps, files, tests, validations, risks. |
+| [`/debug`](.claude/skills/debug/SKILL.md) | Reproducible diagnosis of frontend or Next.js errors without automatic fixes. |
+| [`/upgrade`](.claude/skills/upgrade/SKILL.md) | Upgrade plan for Node.js, React, Next.js, TypeScript, and frontend dependencies. |
+| [`/onboard`](.claude/skills/onboard/SKILL.md) | Technical onboarding guide for an existing React/Next.js project. |
 
-## Convention De Structure
+## Invocation Examples
 
-Chaque skill est un dossier dans `.claude/skills/<nom>/` avec un fichier
-obligatoire `SKILL.md`.
+| Need | Skill | Example |
+|------|-------|---------|
+| Review a diff before commit | `/review` | `/review analyze the staged diff before commit` |
+| Diagnose an error | `/debug` | `/debug analyze this Next.js hydration error` |
+| Simplify a component | `/refactor` | `/refactor simplify components/ProductCard.tsx without changing behavior` |
+| Create a component | `/component` | `/component create a Modal component that matches the design system` |
+| Fix data loading | `/data-fetching` | `/data-fetching fix revalidation for the product list` |
+| Add a form | `/forms` | `/forms create the contact form with server validation` |
+| Add tests | `/test` | `/test add tests for the ProductCard component` |
+| Audit accessibility | `/accessibility` | `/accessibility audit the checkout form` |
+| Audit security | `/security` | `/security audit the modified API routes` |
+| Diagnose slowness | `/performance` | `/performance analyze the dashboard page bundle` |
+| Improve logs | `/observability` | `/observability propose useful logs around the payment Server Action` |
+| Plan a feature or bugfix | `/plan` | `/plan prepare the implementation of <feature-or-bugfix>` |
+| Prepare an upgrade | `/upgrade` | `/upgrade prepare the move to Next.js <version>` |
+| Document a project | `/onboard` | `/onboard generate a guide for a new developer` |
+
+## Structure Convention
+
+Each skill is a folder in `.claude/skills/<name>/` with a required `SKILL.md`
+file.
 
 ```text
 .claude/
 └── skills/
-    └── nom-du-skill/
+    └── skill-name/
         └── SKILL.md
 ```
 
-Le nom du dossier et le champ `name` doivent être identiques.
+The folder name and the `name` field must be identical.
 
 ```yaml
 ---
-name: nom-du-skill
-description: "Description courte et précise du moment où utiliser ce skill."
+name: skill-name
+description: "Short and precise description of when to use this skill."
 ---
 ```
 
-## Template projet
+## Project Template
 
-Un template de `CLAUDE.md` est disponible dans `templates/CLAUDE.md`. Il sert de
-base pour créer des instructions projet adaptées à une application React,
-TypeScript et Next.js existante.
+A `CLAUDE.md` template is available in `templates/CLAUDE.md`. It is used as a
+base for creating project instructions tailored to an existing React,
+TypeScript, and Next.js application.
 
-Prompt court :
+Short prompt:
 
 ```text
-À partir du template templates/CLAUDE.md, génère un CLAUDE.md adapté à ce projet.
-Inspecte d'abord la stack, le lockfile, le router Next.js, les scripts, les tests
-et les conventions existantes. Garde le fichier concis et ne lis pas `.env` ni
-les fichiers d'environnement sensibles.
+From the templates/CLAUDE.md template, generate a CLAUDE.md tailored to this project.
+First inspect the stack, lockfile, Next.js router, scripts, tests, and existing
+conventions. Keep the file concise and do not read `.env` or sensitive
+environment files.
 ```

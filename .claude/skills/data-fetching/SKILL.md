@@ -1,100 +1,100 @@
 ---
 name: data-fetching
-description: "Conçoit ou corrige le data fetching dans un projet React/Next.js. Couvre chargement serveur ou client, stratégie existante, cache, revalidation, invalidation, erreurs, annulation, concurrence, pagination, déduplication, données sensibles et états loading/empty."
+description: "Designs or fixes data fetching in a React/Next.js project. Covers server or client loading, existing strategy, cache, revalidation, invalidation, errors, cancellation, concurrency, pagination, deduplication, sensitive data, and loading/empty states."
 ---
 
-# Data Fetching React / Next.js
+# React / Next.js Data Fetching
 
-## Périmètre
+## Scope
 
-Traiter les chargements de données côté serveur ou client selon l'architecture
-existante du projet.
+Handle server-side or client-side data loading according to the project's
+existing architecture.
 
-Ne pas introduire TanStack Query, SWR, GraphQL client ou autre dépendance si le
-projet ne les utilise pas déjà, sauf confirmation explicite.
+Do not introduce TanStack Query, SWR, a GraphQL client, or another dependency if
+the project does not already use it, unless explicitly confirmed.
 
-## État Des Lieux
+## Current State
 
-Inspecter :
+Inspect:
 
-- Router utilisé : App Router, Pages Router ou hybride.
-- Patterns existants : `fetch`, Server Components, Route Handlers, API routes, Server Actions.
-- Bibliothèques déjà présentes : TanStack Query, SWR, Apollo, urql, client custom.
-- Stratégie de cache : `revalidate`, tags, cache client, CDN, ISR.
-- Gestion d'erreurs et états loading/empty existants.
-- Types de données et présence de données sensibles.
+- Router in use: App Router, Pages Router, or hybrid.
+- Existing patterns: `fetch`, Server Components, Route Handlers, API routes, Server Actions.
+- Existing libraries: TanStack Query, SWR, Apollo, urql, custom client.
+- Cache strategy: `revalidate`, tags, client cache, CDN, ISR.
+- Existing error handling and loading/empty states.
+- Data types and presence of sensitive data.
 
-## Choix Serveur Ou Client
+## Server Or Client Choice
 
-- Préférer le chargement serveur pour données initiales, SEO, sécurité et réduction du bundle.
-- Préférer le client pour interactions fréquentes, données très dynamiques ou état utilisateur local.
-- Ne pas dupliquer la même requête serveur et client sans raison.
-- Ne pas exposer token, secret ou donnée sensible au navigateur.
+- Prefer server loading for initial data, SEO, security, and bundle reduction.
+- Prefer client loading for frequent interactions, highly dynamic data, or local user state.
+- Do not duplicate the same request on the server and client without a reason.
+- Do not expose tokens, secrets, or sensitive data to the browser.
 
-## Cache, Revalidation Et Invalidation
+## Cache, Revalidation, And Invalidation
 
-- Définir fraîcheur attendue, portée utilisateur/tenant et invalidation.
-- Pour App Router, choisir explicitement cache, `no-store`, `revalidate`, tags ou invalidation par path/tag.
-- Pour SWR/TanStack Query, respecter query keys, stale time et invalidation existantes.
-- Éviter de cacher globalement des données personnalisées.
+- Define expected freshness, user/tenant scope, and invalidation.
+- For App Router, explicitly choose cache, `no-store`, `revalidate`, tags, or path/tag invalidation.
+- For SWR/TanStack Query, respect existing query keys, stale time, and invalidation.
+- Avoid globally caching personalized data.
 
-## Erreurs, Concurrence Et Annulation
+## Errors, Concurrency, And Cancellation
 
-- Gérer erreurs attendues et inattendues.
-- Prévoir retry seulement si le projet le fait et si l'opération est idempotente.
-- Annuler ou ignorer les réponses obsolètes côté client.
-- Éviter les race conditions entre filtres, pagination et mutation.
+- Handle expected and unexpected errors.
+- Add retry only if the project already does it and the operation is idempotent.
+- Cancel or ignore obsolete responses on the client side.
+- Avoid race conditions between filters, pagination, and mutation.
 
-## Pagination Et Déduplication
+## Pagination And Deduplication
 
-- Ajouter pagination, limite ou infinite loading si le volume peut grandir.
-- Dédupliquer requêtes identiques quand la stack le permet.
-- Éviter les waterfalls serveur/client.
-- Garder les query params comme source de vérité si le projet l'utilise.
+- Add pagination, a limit, or infinite loading if volume can grow.
+- Deduplicate identical requests when the stack allows it.
+- Avoid server/client waterfalls.
+- Keep query params as the source of truth if the project uses them that way.
 
-## États UI
+## UI States
 
-Prévoir :
+Cover:
 
-- loading initial ;
-- refresh/revalidation ;
-- empty ;
-- error ;
-- pagination terminée ;
-- disabled pendant mutation si nécessaire.
+- initial loading;
+- refresh/revalidation;
+- empty;
+- error;
+- finished pagination;
+- disabled during mutation if needed.
 
-## Chargement Scindé Par Section
+## Section-Level Loading
 
-- Ne pas bloquer toute une page sur un unique `Promise.all` avec un loader
-  plein écran.
-- Scinder les appels indépendants en sous-composants, chacun avec son propre
-  `Suspense` et son skeleton, pour afficher chaque bloc dès que sa donnée arrive
-  (streaming) plutôt que d'attendre la requête la plus lente.
-- Réserver le loader global au cas où toutes les données sont réellement
-  interdépendantes.
+- Do not block an entire page on a single `Promise.all` with a full-screen
+  loader.
+- Split independent calls into subcomponents, each with its own `Suspense` and
+  skeleton, to display each block as soon as its data arrives (streaming) instead
+  of waiting for the slowest request.
+- Reserve the global loader for cases where all data is genuinely
+  interdependent.
 
-## Tests Et Validation
+## Tests And Validation
 
-- Tester succès, erreur, empty et pagination si applicables.
-- Mocker seulement la frontière externe : `fetch`, client API, MSW si déjà utilisé.
-- Vérifier typecheck, tests composants et build.
+- Test success, error, empty, and pagination cases when applicable.
+- Mock only the external boundary: `fetch`, API client, MSW if already used.
+- Check typecheck, component tests, and build.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas ajouter TanStack Query ou SWR si absent sans confirmation.
-- Ne pas rendre publique une variable ou un secret pour appeler une API côté client.
-- Ne pas cacher des données utilisateur dans un cache partagé.
-- Ne pas masquer les erreurs par un tableau vide.
-- Ne pas faire de refactor de couche data hors périmètre.
+- Do not add TanStack Query or SWR if absent without confirmation.
+- Do not make a variable or secret public to call an API on the client side.
+- Do not cache user data in a shared cache.
+- Do not hide errors behind an empty array.
+- Do not refactor the data layer outside the scope.
 
-## Format De Sortie
+## Output Format
 
-Présenter :
+Present:
 
-- **Stratégie détectée**
-- **Choix serveur/client**
-- **Cache et invalidation**
-- **États et erreurs**
-- **Fichiers à modifier**
-- **Tests et validations**
-- **Risques ou décisions à valider**
+- **Detected strategy**
+- **Server/client choice**
+- **Cache and invalidation**
+- **States and errors**
+- **Files to modify**
+- **Tests and validations**
+- **Risks or decisions to validate**

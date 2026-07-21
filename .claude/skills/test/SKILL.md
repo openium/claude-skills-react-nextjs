@@ -1,75 +1,75 @@
 ---
 name: test
-description: "Ajoute ou corrige des tests unitaires et de composants pour React, TypeScript et Next.js. Détecte Jest ou Vitest et React Testing Library, privilégie les tests orientés comportement, requêtes accessibles, userEvent, composants asynchrones, hooks, mocks limités et tests de régression."
+description: "Adds or fixes unit and component tests for React, TypeScript, and Next.js. Detects Jest or Vitest and React Testing Library, favors behavior-oriented tests, accessible queries, userEvent, async components, hooks, limited mocks, and regression tests."
 ---
 
-# Tests React / Next.js
+# React / Next.js Tests
 
-## Périmètre
+## Scope
 
-Créer ou corriger des tests unitaires et de composants. Pour E2E, proposer une
-couverture seulement si le projet utilise déjà Playwright, Cypress ou équivalent.
+Create or fix unit and component tests. For E2E, propose coverage only if the
+project already uses Playwright, Cypress, or equivalent.
 
-Ne pas ajouter une nouvelle stack de test sans confirmation explicite.
+Do not add a new test stack without explicit confirmation.
 
-## État Des Lieux
+## Current State
 
-Inspecter :
+Inspect:
 
-- `package.json` : scripts et dépendances test.
-- Configuration Jest ou Vitest.
+- `package.json`: test scripts and dependencies.
+- Jest or Vitest configuration.
 - React Testing Library, `@testing-library/user-event`, `jest-dom`.
-- Structure `tests/`, `__tests__/`, fichiers `*.test.*`, `*.spec.*`.
-- Setup global, mocks existants, MSW si présent.
-- Capacité du projet à tester Server Components.
+- `tests/`, `__tests__/`, `*.test.*`, `*.spec.*` structure.
+- Global setup, existing mocks, MSW if present.
+- Project ability to test Server Components.
 
-## Principes
+## Principles
 
-- Tester le comportement observable, pas l'implémentation.
-- Utiliser les requêtes accessibles : `getByRole`, `getByLabelText`, `getByText` si pertinent.
-- Utiliser `userEvent` pour les interactions.
-- Garder un test lisible avec une intention claire.
-- Limiter les mocks aux frontières externes : réseau, storage, router, horloge, dépendance externe.
-- Ajouter un test de régression pour un bugfix.
+- Test observable behavior, not implementation.
+- Use accessible queries: `getByRole`, `getByLabelText`, `getByText` when relevant.
+- Use `userEvent` for interactions.
+- Keep tests readable with a clear intent.
+- Limit mocks to external boundaries: network, storage, router, clock, external dependency.
+- Add a regression test for a bugfix.
 
-## Cas À Couvrir
+## Cases To Cover
 
-- Rendu nominal.
-- États loading, empty, error et disabled.
-- Interactions utilisateur.
-- Composants asynchrones et résolution de promesses.
-- Hooks via composant de test ou utilitaire existant.
-- Validation de formulaires et messages d'erreur.
-- Server Components seulement si la stack du projet le supporte.
+- Nominal rendering.
+- Loading, empty, error, and disabled states.
+- User interactions.
+- Async components and promise resolution.
+- Hooks through a test component or existing utility.
+- Form validation and error messages.
+- Server Components only if the project stack supports it.
 
-## Stabilité
+## Stability
 
-- Éviter assertions sur détails CSS ou structure fragile.
-- Contrôler timers, dates, timezone et random si nécessaires.
-- Nettoyer mocks et side effects.
-- Attendre l'UI avec `findBy*` ou `waitFor` quand c'est réellement asynchrone.
-- Ne pas augmenter les timeouts pour masquer une race condition.
+- Avoid assertions on CSS details or fragile structure.
+- Control timers, dates, timezone, and random when needed.
+- Clean up mocks and side effects.
+- Wait for the UI with `findBy*` or `waitFor` when it is truly async.
+- Do not increase timeouts to hide a race condition.
 
 ## Next.js
 
-- Respecter les mocks existants pour `next/navigation`, `next/router`, `next/image`, `next/link`.
-- Distinguer App Router et Pages Router.
-- Ne pas tester une Server Action comme une simple fonction si le projet a un helper dédié.
+- Respect existing mocks for `next/navigation`, `next/router`, `next/image`, `next/link`.
+- Distinguish App Router and Pages Router.
+- Do not test a Server Action as a simple function if the project has a dedicated helper.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas installer Jest, Vitest, RTL, MSW ou Playwright sans confirmation.
-- Ne pas mocker tout le composant testé.
-- Ne pas tester uniquement que le composant "render sans crash".
-- Ne pas supprimer ou assouplir un test pour faire passer la suite.
-- Ne pas utiliser `data-testid` si une requête accessible convient.
+- Do not install Jest, Vitest, RTL, MSW, or Playwright without confirmation.
+- Do not mock the entire component under test.
+- Do not only test that the component "renders without crashing".
+- Do not delete or loosen a test to make the suite pass.
+- Do not use `data-testid` if an accessible query fits.
 
-## Format De Sortie
+## Output Format
 
-Après modification, résumer :
+After modification, summarize:
 
-- **Tests ajoutés ou modifiés**
-- **Comportements couverts**
-- **Mocks utilisés**
-- **Commandes lancées**
-- **Limites ou tests encore manquants**
+- **Tests added or modified**
+- **Behaviors covered**
+- **Mocks used**
+- **Commands run**
+- **Limits or tests still missing**

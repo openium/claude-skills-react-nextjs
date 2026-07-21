@@ -1,126 +1,126 @@
 ---
 name: debug
-description: "Diagnostique une erreur frontend, React, TypeScript ou Next.js sans appliquer automatiquement une correction. À utiliser pour build cassé, erreur serveur ou navigateur, hydration mismatch, boucle de rendu, routing, cache obsolète, Server/Client Components, test instable ou écart dev/prod."
+description: "Diagnoses a frontend, React, TypeScript, or Next.js error without automatically applying a fix. Use for broken builds, server or browser errors, hydration mismatches, render loops, routing, stale cache, Server/Client Components, flaky tests, or dev/prod gaps."
 ---
 
-# Débogage React / Next.js
+# React / Next.js Debugging
 
-## Périmètre
+## Scope
 
-Si l'utilisateur fournit une erreur, stacktrace, log, test en échec, URL, capture
-ou fichier, commencer par ce signal.
+If the user provides an error, stacktrace, log, failing test, URL, screenshot, or
+file, start with that signal.
 
-Sinon :
+Otherwise:
 
-- Lire `git status` pour repérer les changements récents.
-- Identifier les scripts dans `package.json`.
-- Inspecter la stack : lockfile, `tsconfig.json`, `next.config.*`, tests.
-- Demander le symptôme exact si aucun signal exploitable n'est présent.
+- Read `git status` to identify recent changes.
+- Identify scripts in `package.json`.
+- Inspect the stack: lockfile, `tsconfig.json`, `next.config.*`, tests.
+- Ask for the exact symptom if no usable signal is present.
 
-Ne pas appliquer automatiquement une correction. Proposer la correction après
-avoir établi la cause racine, sauf demande explicite de modifier le code.
+Do not automatically apply a fix. Propose the fix after establishing the root
+cause, unless the user explicitly asks you to modify the code.
 
-## Démarche Reproductible
+## Reproducible Method
 
-Toujours structurer l'enquête :
+Always structure the investigation:
 
-1. **Symptôme** : message, commande, page, environnement, navigateur, test.
-2. **Reproduction** : plus petite commande ou suite d'actions qui déclenche le bug.
-3. **Hypothèses** : causes possibles, triées par probabilité.
-4. **Preuves** : fichiers, lignes, logs, diff, config ou comportement observé.
-5. **Cause racine** : cause minimale qui explique le symptôme.
-6. **Correction proposée** : changement ciblé, sans refactor opportuniste.
-7. **Test de non-régression** : test ou validation qui prouve la correction.
+1. **Symptom**: message, command, page, environment, browser, test.
+2. **Reproduction**: smallest command or action sequence that triggers the bug.
+3. **Hypotheses**: possible causes, sorted by probability.
+4. **Evidence**: files, lines, logs, diff, config, or observed behavior.
+5. **Root cause**: minimal cause that explains the symptom.
+6. **Proposed fix**: targeted change, without opportunistic refactor.
+7. **Regression test**: test or validation that proves the fix.
 
-Si la reproduction est impossible, dire ce qui manque et quelle donnée collecter.
+If reproduction is impossible, state what is missing and what data to collect.
 
-## Points D'Analyse
+## Analysis Points
 
-### Build Et TypeScript
+### Build And TypeScript
 
-- Erreur `next build`, `tsc`, ESLint ou bundler.
-- Type public modifié, `any`, assertion `as`, non-null assertion ou config TS contournée.
-- Différence entre `next dev` et `next build`.
-- Import incompatible serveur/client ou module absent dans l'environnement cible.
+- `next build`, `tsc`, ESLint, or bundler error.
+- Modified public type, `any`, `as` assertion, non-null assertion, or bypassed TS config.
+- Difference between `next dev` and `next build`.
+- Server/client incompatible import or module missing in the target environment.
 
-### Erreurs Serveur Et Navigateur
+### Server And Browser Errors
 
-- Lire la première frame applicative.
-- Distinguer erreur Node.js, Route Handler, Server Action, middleware, navigateur.
-- Vérifier que les secrets ne sont pas affichés dans les logs ou la réponse.
-- Comparer environnement local, CI, preview et production si le bug dépend du contexte.
+- Read the first application frame.
+- Distinguish Node.js, Route Handler, Server Action, middleware, and browser errors.
+- Check that secrets are not displayed in logs or the response.
+- Compare local, CI, preview, and production environments if the bug depends on context.
 
 ### Hydration Mismatch
 
-- Chercher date, random, locale, timezone, `window`, media query, storage, taille d'écran.
-- Vérifier markup serveur/client et valeurs non stables au premier rendu.
-- Identifier si le composant doit rester serveur ou devenir client localement.
+- Look for date, random, locale, timezone, `window`, media query, storage, screen size.
+- Check server/client markup and values that are unstable on first render.
+- Identify whether the component should remain server-side or become local client-side code.
 
-### Hooks Et Boucles De Rendu
+### Hooks And Render Loops
 
-- Dépendances `useEffect`, `useMemo`, `useCallback`.
-- State update pendant le rendu ou effet qui réécrit sa propre dépendance.
-- Hook conditionnel, race condition, requête non annulée.
-- État dérivé stocké inutilement.
+- `useEffect`, `useMemo`, `useCallback` dependencies.
+- State update during render or effect that rewrites its own dependency.
+- Conditional hook, race condition, uncancelled request.
+- Derived state stored unnecessarily.
 
 ### Routing
 
-- App Router : layouts, pages, route handlers, dynamic segments, `notFound`, `redirect`.
-- Pages Router : `getServerSideProps`, `getStaticProps`, API routes, query params.
-- Architecture hybride : vérifier la zone réellement concernée.
-- Middleware, redirects, trailing slash, basePath, i18n si configurés.
+- App Router: layouts, pages, route handlers, dynamic segments, `notFound`, `redirect`.
+- Pages Router: `getServerSideProps`, `getStaticProps`, API routes, query params.
+- Hybrid architecture: check the area actually concerned.
+- Middleware, redirects, trailing slash, basePath, i18n if configured.
 
-### Cache Et Données Obsolètes
+### Cache And Stale Data
 
 - `fetch` cache, `revalidate`, tags, `revalidatePath`, `revalidateTag`.
-- SWR/TanStack Query si déjà utilisés.
-- Cache navigateur, CDN, edge, ISR, données par utilisateur ou tenant.
-- Invalidation après mutation.
+- SWR/TanStack Query if already used.
+- Browser cache, CDN, edge, ISR, per-user or per-tenant data.
+- Invalidation after mutation.
 
 ### Server / Client Components
 
-- API navigateur ou hooks client dans un Server Component.
-- Secret ou logique serveur importé côté client.
-- Props non sérialisables entre serveur et client.
-- `"use client"` placé trop haut pour masquer le problème.
+- Browser API or client hooks in a Server Component.
+- Secret or server logic imported client-side.
+- Non-serializable props between server and client.
+- `"use client"` placed too high to hide the problem.
 
-### Tests Instables
+### Flaky Tests
 
-- Asynchronisme non attendu, timers, race, ordre des tests, mock global.
-- Requête Testing Library non accessible ou assertion trop liée à l'implémentation.
-- Écart entre environnement test et runtime Next.js.
+- Unawaited async behavior, timers, races, test order, global mock.
+- Testing Library query that is not accessible or assertion too tied to implementation.
+- Gap between test environment and Next.js runtime.
 
-## Commandes Utiles
+## Useful Commands
 
-Adapter au lockfile et aux scripts existants :
+Adapt to the existing lockfile and scripts:
 
 - `<package-manager> run build`
 - `<package-manager> run typecheck`
 - `<package-manager> run lint`
-- `<package-manager> run test -- <filtre>`
-- `<package-manager> run test:e2e -- <filtre>`
-- `next build` seulement si le projet l'utilise directement
+- `<package-manager> run test -- <filter>`
+- `<package-manager> run test:e2e -- <filter>`
+- `next build` only if the project uses it directly
 
-Ne pas lancer de commande destructive, migration, reset de données ou nettoyage
-global sans confirmation explicite.
+Do not run destructive commands, migrations, data resets, or global cleanup
+without explicit confirmation.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas masquer une erreur par un fallback silencieux.
-- Ne pas supprimer ou assouplir un test sans preuve qu'il est obsolète.
-- Ne pas désactiver TypeScript, ESLint, hydration warnings ou checks de build.
-- Ne pas vider le cache comme solution durable sans cause prouvée.
-- Ne pas exposer secrets, cookies, tokens ou données personnelles.
-- Ne pas transformer une variable en `NEXT_PUBLIC_*` sans preuve qu'elle est publique.
+- Do not hide an error behind a silent fallback.
+- Do not delete or loosen a test without proof that it is obsolete.
+- Do not disable TypeScript, ESLint, hydration warnings, or build checks.
+- Do not clear cache as a durable solution without a proven cause.
+- Do not expose secrets, cookies, tokens, or personal data.
+- Do not turn a variable into `NEXT_PUBLIC_*` without proof that it is public.
 
-## Format De Sortie
+## Output Format
 
-Répondre avec :
+Respond with:
 
-1. **Symptôme** : erreur ou comportement observé.
-2. **Reproduction** : commande ou scénario minimal.
-3. **Hypothèses** : triées par probabilité si la cause n'est pas prouvée.
-4. **Preuves** : fichiers, lignes, logs ou résultats de commandes.
-5. **Cause racine** : diagnostic en une phrase avec niveau de confiance.
-6. **Correction proposée** : changement ciblé à appliquer.
-7. **Test de non-régression** : test ou validation à ajouter/lancer.
+1. **Symptom**: error or observed behavior.
+2. **Reproduction**: minimal command or scenario.
+3. **Hypotheses**: sorted by probability if the cause is not proven.
+4. **Evidence**: files, lines, logs, or command results.
+5. **Root cause**: one-sentence diagnosis with confidence level.
+6. **Proposed fix**: targeted change to apply.
+7. **Regression test**: test or validation to add/run.

@@ -1,85 +1,85 @@
 ---
 name: observability
-description: "Audite ou améliore l'observabilité d'un projet React/Next.js. Couvre erreurs serveur et navigateur, logs structurés, corrélation des requêtes, traces, métriques, source maps, Sentry ou outil existant, alertes, sampling, protection des tokens/cookies/données personnelles et distinction erreurs attendues/inattendues."
+description: "Audits or improves observability in a React/Next.js project. Covers server and browser errors, structured logs, request correlation, traces, metrics, source maps, Sentry or an existing tool, alerts, sampling, token/cookie/personal data protection, and expected/unexpected error distinction."
 ---
 
-# Observabilité React / Next.js
+# React / Next.js Observability
 
-## Périmètre
+## Scope
 
-Déterminer si l'utilisateur demande :
+Determine whether the user is asking for:
 
-- Audit des logs, erreurs, traces ou métriques.
-- Ajout de logs autour d'un flux, route, Server Action, API route ou client externe.
-- Diagnostic d'un manque d'information en production.
-- Intégration ou correction Sentry, OpenTelemetry, Datadog ou outil existant.
-- Réduction de bruit ou fuite de données sensibles.
+- An audit of logs, errors, traces, or metrics.
+- Adding logs around a flow, route, Server Action, API route, or external client.
+- Diagnosis of missing production information.
+- Integration or correction of Sentry, OpenTelemetry, Datadog, or an existing tool.
+- Noise reduction or a sensitive data leak.
 
-Ne pas lire ni afficher `.env`, DSN, tokens, cookies ou données personnelles.
+Do not read or display `.env`, DSNs, tokens, cookies, or personal data.
 
-## État Des Lieux
+## Current State
 
-Inspecter selon le projet :
+Inspect according to the project:
 
-- `package.json` : Sentry, OpenTelemetry, Datadog, logger, analytics.
+- `package.json`: Sentry, OpenTelemetry, Datadog, logger, analytics.
 - `next.config.*`, instrumentation, middleware, source maps.
-- Route Handlers, API routes, Server Actions, clients externes.
-- Error boundaries, `error.tsx`, `global-error.tsx`, logs navigateur.
-- CI/CD et configuration de déploiement si visible.
+- Route Handlers, API routes, Server Actions, external clients.
+- Error boundaries, `error.tsx`, `global-error.tsx`, browser logs.
+- CI/CD and deployment configuration if visible.
 
-## Objectifs
+## Goals
 
-Une bonne observabilité doit permettre de savoir :
+Good observability should make it possible to know:
 
-- Qu'est-ce qui a échoué ?
-- Côté serveur, navigateur, edge ou dépendance externe ?
-- Pour quelle requête, route, tenant, ressource ou action, sans donnée sensible ?
-- Erreur attendue, métier, transitoire ou incident ?
-- Comment corréler logs, traces, métriques et événement frontend ?
+- What failed?
+- On the server, browser, edge, or external dependency side?
+- For which request, route, tenant, resource, or action, without sensitive data?
+- Expected, business, transient, or incident error?
+- How to correlate logs, traces, metrics, and frontend events?
 
-## Logs Et Erreurs
+## Logs And Errors
 
-- Utiliser logs structurés avec contexte stable.
-- Ne pas logger tokens, cookies, Authorization, payload complet sensible ou PII inutile.
-- Distinguer erreurs attendues et inattendues.
-- Ne pas avaler une exception critique après log.
-- Côté client, éviter de capturer des données de formulaire sensibles.
+- Use structured logs with stable context.
+- Do not log tokens, cookies, Authorization, a complete sensitive payload, or unnecessary PII.
+- Distinguish expected and unexpected errors.
+- Do not swallow a critical exception after logging it.
+- On the client side, avoid capturing sensitive form data.
 
-## Traces, Métriques, Alertes
+## Traces, Metrics, Alerts
 
-- Propager request id ou correlation id si le projet le fait.
-- Instrumenter frontières : route, action serveur, client externe, tâche async.
-- Mesurer taux d'erreur, latence, timeouts, échecs critiques.
-- Garder cardinalité maîtrisée : pas d'email, UUID utilisateur massif ou payload dynamique en label.
-- Prévoir alertes actionnables et sampling adapté.
+- Propagate request id or correlation id if the project does it.
+- Instrument boundaries: route, server action, external client, async job.
+- Measure error rate, latency, timeouts, critical failures.
+- Keep cardinality controlled: no email, massive user UUID, or dynamic payload as a label.
+- Plan actionable alerts and appropriate sampling.
 
-## Source Maps Et Outils
+## Source Maps And Tools
 
-- Utiliser Sentry ou outil existant plutôt que changer d'outil.
-- Vérifier upload de source maps sans exposer inutilement les sources publiques.
-- Garder environnements, release et commit SHA cohérents si déjà utilisés.
+- Use Sentry or the existing tool instead of changing tools.
+- Check source map upload without unnecessarily exposing public sources.
+- Keep environments, release, and commit SHA consistent if already used.
 
-## Tests Et Validation
+## Tests And Validation
 
-- Tester qu'une erreur attendue n'est pas reportée comme incident si possible.
-- Tester qu'une erreur critique remonte ou est loggée avec contexte utile.
-- Vérifier que données sensibles ne sont pas incluses dans logs/events.
-- Ne pas déclencher alertes production ou appels externes réels sans confirmation.
+- Test that an expected error is not reported as an incident when possible.
+- Test that a critical error is surfaced or logged with useful context.
+- Verify that sensitive data is not included in logs/events.
+- Do not trigger production alerts or real external calls without confirmation.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas ajouter une dépendance d'observabilité sans demande explicite.
-- Ne pas logger des secrets pour debugger.
-- Ne pas remplacer une exception par un simple log.
-- Ne pas envoyer données personnelles à un outil tiers sans filtrage.
-- Ne pas créer métriques ou tags à cardinalité incontrôlée.
+- Do not add an observability dependency without an explicit request.
+- Do not log secrets to debug.
+- Do not replace an exception with a simple log.
+- Do not send personal data to a third-party tool without filtering.
+- Do not create metrics or tags with uncontrolled cardinality.
 
-## Format De Sortie
+## Output Format
 
-Présenter :
+Present:
 
-- **Findings** par sévérité, avec fichier/ligne, preuve, impact, correction.
-- **Contexte à ajouter ou retirer**
-- **Données sensibles protégées**
-- **Tests ou vérifications conseillés**
-- **Limites restantes**
+- **Findings** by severity, with file/line, evidence, impact, fix.
+- **Context to add or remove**
+- **Sensitive data protected**
+- **Recommended tests or checks**
+- **Remaining limits**

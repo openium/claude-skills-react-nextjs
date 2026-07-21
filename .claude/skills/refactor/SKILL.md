@@ -1,76 +1,76 @@
 ---
 name: refactor
-description: "Refactorise du code React, TypeScript ou Next.js sans changer le comportement observable. À utiliser pour simplifier composants, hooks, types, duplication, état dérivé, effets inutiles ou frontières Server/Client Components, avec diff minimal et tests de caractérisation."
+description: "Safely refactors React, TypeScript, and Next.js code. Use to simplify components, hooks, types, duplication, derived state, unnecessary effects, or Server/Client Component boundaries, with minimal diff and characterization tests."
 ---
 
-# Refactoring React / Next.js
+# React / Next.js Refactoring
 
-## Périmètre
+## Scope
 
-Si l'utilisateur précise un fichier, composant, hook, dossier ou diff, limiter le
-refactor à ce périmètre.
+If the user specifies a file, component, hook, folder, or diff, limit the
+refactor to that scope.
 
-Si le périmètre est ambigu ou trop large, demander une cible avant de modifier.
+If the scope is ambiguous or too broad, ask for a target before modifying.
 
-## Objectif
+## Goal
 
-Améliorer la structure sans changer le comportement observable :
+Improve structure without changing observable behavior:
 
-- mêmes props publiques ;
-- même rendu utile ;
-- mêmes interactions ;
-- mêmes effets de bord ;
-- mêmes routes, payloads, erreurs et états utilisateur.
+- same public props;
+- same useful rendering;
+- same interactions;
+- same side effects;
+- same routes, payloads, errors, and user states.
 
-## Processus
+## Process
 
-1. Lire le code cible et les tests existants.
-2. Rechercher les usages entrants du composant, hook ou service.
-3. Identifier les conventions locales avant d'appliquer une règle générale.
-4. Ajouter ou proposer un test de caractérisation si le comportement n'est pas couvert.
-5. Appliquer le plus petit refactor cohérent.
-6. Lancer les tests ciblés si possible.
+1. Read the target code and existing tests.
+2. Search for incoming usages of the component, hook, or service.
+3. Identify local conventions before applying a general rule.
+4. Add or propose a characterization test if behavior is not covered.
+5. Apply the smallest coherent refactor.
+6. Run targeted tests when possible.
 
-## Refactors Couverts
+## Covered Refactors
 
-- Composant trop complexe : extraire sous-composants privés ou fonctions pures.
-- Hook trop chargé : séparer état, effets, data fetching et handlers.
-- Duplication : extraire seulement si au moins deux usages réels existent.
-- Types : clarifier props, unions, types dérivés, sans affaiblir le typage.
-- État dérivé : remplacer state inutile par calcul au rendu ou memo justifié.
-- Effets inutiles : supprimer effets de synchronisation évitables.
-- Server/Client Components : réduire la surface client sans changer l'UX.
-- Tests : préserver le comportement via tests existants ou caractérisation.
+- Component too complex: extract private subcomponents or pure functions.
+- Hook too loaded: separate state, effects, data fetching, and handlers.
+- Duplication: extract only if at least two real usages exist.
+- Types: clarify props, unions, derived types, without weakening typing.
+- Derived state: replace unnecessary state with render-time calculation or justified memo.
+- Unnecessary effects: remove avoidable synchronization effects.
+- Server/Client Components: reduce client surface without changing UX.
+- Tests: preserve behavior through existing tests or characterization.
 
-## Frontières Server / Client
+## Server / Client Boundaries
 
-- Ne pas ajouter `"use client"` à un arbre complet pour simplifier.
-- Ne pas déplacer une logique serveur dans un Client Component.
-- Ne pas exposer secret, cookie, token ou client interne côté navigateur.
-- Préserver la sérialisabilité des props passées aux Client Components.
+- Do not add `"use client"` to an entire tree to simplify.
+- Do not move server logic into a Client Component.
+- Do not expose a secret, cookie, token, or internal client to the browser.
+- Preserve serializability of props passed to Client Components.
 
-## Tests Et Validation
+## Tests And Validation
 
-- Lancer tests unitaires ou composants proches.
-- Lancer typecheck si signatures, props ou types changent.
-- Lancer lint si imports, hooks ou conventions sont touchés.
-- Ajouter un test de caractérisation quand le refactor touche un comportement non couvert.
+- Run nearby unit or component tests.
+- Run typecheck if signatures, props, or types change.
+- Run lint if imports, hooks, or conventions are touched.
+- Add a characterization test when the refactor touches uncovered behavior.
 
-## Ne Pas Faire
+## Do Not
 
-- Ne pas migrer de framework, router ou architecture.
-- Ne pas changer de dépendance ou ajouter une librairie.
-- Ne pas réécrire largement un module par préférence.
-- Ne pas mélanger refactor et feature.
-- Ne pas modifier comportement, payload, accessibilité ou route sans demande explicite.
-- Ne pas faire d'améliorations opportunistes hors périmètre.
+- Do not migrate framework, router, or architecture.
+- Do not change a dependency or add a library.
+- Do not broadly rewrite a module by preference.
+- Do not mix refactor and feature.
+- Do not modify behavior, payload, accessibility, or route without an explicit request.
+- Do not make opportunistic improvements outside the scope.
 
-## Format De Sortie
+## Output Format
 
-Résumer :
+Summarize:
 
-- **Fichiers modifiés**
-- **Refactors appliqués** et raison courte
-- **Comportement préservé**
-- **Tests ou validations lancés**
-- **Risques ou limites restantes**
+- **Modified files**
+- **Applied refactors** and short reason
+- **Preserved behavior**
+- **Tests or validations run**
+- **Remaining risks or limits**

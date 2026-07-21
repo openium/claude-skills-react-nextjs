@@ -1,94 +1,89 @@
 # CLAUDE.md
 
-Instructions projet pour Claude Code.
+Project instructions for Claude Code.
 
-Ce fichier doit rester court, concret et maintenu avec le projet. Il complète
-les skills spécialisés disponibles dans `.claude/skills/`.
+This file must remain short, concrete, and maintained with the project. It
+complements the specialized skills available in `.claude/skills/`.
 
-## Contexte Du Projet
+## Project Context
 
-- Nom du projet : `<nom-du-projet>`
-- Domaine métier : `<description courte>`
-- Type d'application : `<site vitrine, SaaS, back-office, e-commerce, app mobile web, librairie>`
-- Environnement principal : `<local Node.js, Docker, CI uniquement, plateforme cloud>`
-- Niveau de criticité : `<faible, moyen, élevé>`
+- Project name: `<project-name>`
+- Business domain: `<short description>`
+- Application type: `<marketing site, SaaS, back office, e-commerce, mobile web app, library>`
+- Main environment: `<local Node.js, Docker, CI only, cloud platform>`
+- Criticality level: `<low, medium, high>`
 
-## Stack Technique
+## Technical Stack
 
-- Node.js : `<version détectée dans .nvmrc, package.json, Dockerfile ou CI>`
-- Gestionnaire de paquets : `<npm, pnpm ou Yarn selon le lockfile présent>`
-- React : `<version>`
-- Next.js : `<version>`
-- Router : `<App Router, Pages Router ou architecture hybride>`
-- TypeScript : `<strict, non strict, configuration particulière>`
-- Styles et design system : `<CSS Modules, Tailwind CSS, Sass, styled-components, MUI, shadcn/ui, autre>`
-- Gestion d'état : `<React state, Context, Redux, Zustand, Jotai, TanStack Query, autre>`
-- Data fetching : `<Server Components, fetch, API routes, Route Handlers, SWR, TanStack Query, GraphQL, autre>`
-- Tests unitaires, composants et E2E : `<Vitest, Jest, Testing Library, Storybook, Playwright, Cypress, autre>`
-- Observabilité : `<Sentry, Datadog, OpenTelemetry, logs plateforme, analytics, aucun>`
+- Node.js: `<version detected in .nvmrc, package.json, Dockerfile, or CI>`
+- Package manager: `<npm, pnpm, or Yarn according to the lockfile present>`
+- React: `<version>`
+- Next.js: `<version>`
+- Router: `<App Router, Pages Router, or hybrid architecture>`
+- TypeScript: `<strict, non-strict, specific configuration>`
+- Styles and design system: `<CSS Modules, Tailwind CSS, Sass, styled-components, MUI, shadcn/ui, other>`
+- State management: `<React state, Context, Redux, Zustand, Jotai, TanStack Query, other>`
+- Data fetching: `<Server Components, fetch, API routes, Route Handlers, SWR, TanStack Query, GraphQL, other>`
+- Unit, component, and E2E tests: `<Vitest, Jest, Testing Library, Storybook, Playwright, Cypress, other>`
+- Observability: `<Sentry, Datadog, OpenTelemetry, platform logs, analytics, none>`
 
-## Règles Générales De Modification
+## General Modification Rules
 
-- Répondre en français technique, concis et actionnable.
-- Lire le code, les scripts et les fichiers de configuration avant de modifier.
-- Préserver les conventions et versions réellement détectées dans le projet.
-- Utiliser le gestionnaire de paquets correspondant au lockfile.
-- Ne pas supposer App Router, Pages Router, React Server Components ou une version récente sans preuve.
-- Ne pas migrer automatiquement du Pages Router vers l'App Router.
-- Ne pas ajouter `"use client"` à un arbre complet par facilité.
-- Ne pas désactiver TypeScript, ESLint ou les tests pour faire passer une validation.
-- Ne pas faire de refactor opportuniste sans lien direct avec la demande.
+- Respond in concise, actionable technical English.
+- Read the code, scripts, and configuration files before modifying.
+- Preserve the conventions and versions actually detected in the project.
+- Use the package manager that matches the lockfile.
+- Do not assume App Router, Pages Router, React Server Components, or a recent version without proof.
+- Do not automatically migrate from Pages Router to App Router.
+- Do not add `"use client"` to an entire tree for convenience.
+- Do not disable TypeScript, ESLint, or tests to make validation pass.
+- Do not perform opportunistic refactors unrelated to the request.
 
-## Conventions De Génération Au Démarrage De Projet
+## Project Startup Generation Conventions
 
-Ces règles s'appliquent quand du code neuf est généré à partir du boilerplate
-(phase de démarrage, avant reprise par les développeurs). Elles sont
-prescriptives : les appliquer par défaut, sans attendre qu'un existant les
-impose. Objectif : livrer un code que les développeurs peuvent intégrer sans
-tout renommer ni tout retraduire.
+These rules apply when new code is generated from the boilerplate (startup
+phase, before developers take over). They are prescriptive: apply them by
+default, without waiting for existing code to impose them. Goal: deliver code
+that developers can integrate without renaming or retranslating everything.
 
-### Langue du code contre langue de l'interface
+### Code Language Versus Interface Language
 
-- Tout le **code** est en anglais, sans exception : noms de fichiers, dossiers,
-  routes, fonctions, composants, hooks, variables, types et **propriétés
-  d'objets**.
-- Le **français** n'existe que dans les fichiers de traduction. Jamais dans un
-  identifiant, un nom de route ou une clé d'objet.
-- Un libellé métier français dans la demande ne devient pas un nom de code
-  français : le traduire en anglais pour nommer le code, garder le français
-  pour le texte affiché.
+- All **code** is in English, without exception: file names, folders, routes,
+  functions, components, hooks, variables, types, and **object properties**.
+- **French** exists only in translation files. Never in an identifier, route
+  name, or object key.
+- A French business label in the request does not become a French code name:
+  translate it to English for code naming, keep French for displayed text.
 
-### Schéma de données — question à poser en premier
+### Data Schema: Ask This Question First
 
-Avant de générer types, routes ou services de données, poser la question :
+Before generating types, routes, or data services, ask:
 
-> « Existe-t-il un schéma de base de données ou un contrat d'API back sur lequel
-> je dois m'aligner ? »
+> "Is there a database schema or backend API contract I should align with?"
 
-- Si oui : les types et propriétés front reprennent **exactement** les noms du
-  back (noms inclus). Ne jamais mapper ni transformer la réponse API pour
-  « traduire » ou « réarranger » les champs — c'est ce qui force à tout
-  réécrire ensuite. Une conversion UI ↔ API réellement nécessaire (ex. toggle
-  booléen vers enum) se fait dans la couche service, pas dans le composant.
-- Si non : nommer selon les conventions REST/API anglaises usuelles et signaler
-  que ces noms devront être confirmés à l'arrivée du vrai back.
+- If yes: frontend types and properties use **exactly** the backend names
+  (including names). Never map or transform the API response to "translate" or
+  "rearrange" fields, because that forces later rewrites. A truly necessary UI
+  to API conversion (for example, boolean toggle to enum) belongs in the service
+  layer, not in the component.
+- If no: name according to common English REST/API conventions and note that
+  these names must be confirmed when the real backend arrives.
 
-### Traductions dès la génération
+### Translations From Generation
 
-- Aucun texte visible en dur. Tout texte affiché passe par `next-intl` dès
-  l'écriture du composant.
-  - Server Components : `const t = await getTranslations('namespace')`
-  - Client Components : `const t = useTranslations('namespace')`
-- Chaque clé est ajoutée dans `messages/fr.json` **et** `messages/en.json` en
-  même temps, sous un namespace correspondant à la section.
-- Dans le JSX : guillemets simples et accolades — `{t('cle')}`, pas
-  `t("cle")` ni `{t("cle")}`. Pour injecter du JSX dans une chaîne, utiliser
-  `t.rich('cle', { ... })`.
+- No hardcoded visible text. All displayed text goes through `next-intl` as soon
+  as the component is written.
+  - Server Components: `const t = await getTranslations('namespace')`
+  - Client Components: `const t = useTranslations('namespace')`
+- Each key is added to `messages/fr.json` **and** `messages/en.json` at the same
+  time, under a namespace matching the section.
+- In JSX: single quotes and braces: `{t('key')}`, not `t("key")` or
+  `{t("key")}`. To inject JSX into a string, use `t.rich('key', { ... })`.
 
-### `generateMetadata` sur chaque page
+### `generateMetadata` On Every Page
 
-Toute page exporte `generateMetadata`, alimentée par une clé de traduction
-(`<namespace>.titleMetadata`) — pas de page sans titre d'onglet.
+Every page exports `generateMetadata`, powered by a translation key
+(`<namespace>.titleMetadata`): no page without a browser tab title.
 
 ```ts
 import type { Metadata } from 'next';
@@ -103,141 +98,141 @@ export async function generateMetadata(props: {
 }
 ```
 
-La clé `titleMetadata` est ajoutée dans `messages/fr.json` et `messages/en.json`.
+The `titleMetadata` key is added to `messages/fr.json` and `messages/en.json`.
 
-### Zéro duplication
+### Zero Duplication
 
-Dès que des blocs de JSX ou de logique sont identiques ou quasi identiques,
-extraire un composant ou un helper réutilisable plutôt que copier-coller.
+As soon as JSX or logic blocks are identical or nearly identical, extract a
+reusable component or helper instead of copy-pasting.
 
-### Chargement scindé, pas de loader global
+### Section-Level Loading, Not Global Loader
 
-- Ne pas bloquer une page entière sur un unique `Promise.all` avec un loader
-  plein écran.
-- Scinder les appels de données indépendants en sous-composants, chacun avec
-  son propre `Suspense` et son skeleton, pour afficher chaque bloc dès que sa
-  donnée arrive (streaming) plutôt que d'attendre la donnée la plus lente.
+- Do not block an entire page on a single `Promise.all` with a full-screen
+  loader.
+- Split independent data calls into subcomponents, each with its own `Suspense`
+  and skeleton, to display each block as soon as its data arrives (streaming)
+  instead of waiting for the slowest data.
 
-### Galerie de composants
+### Component Gallery
 
-À chaque ajout ou modification d'un composant réutilisable, le référencer dans
-une page galerie qui montre tous ses états (loading, empty, error, disabled,
-variants). Cette page sert de vérification visuelle pour la designer et les
-développeurs.
+For every addition or modification of a reusable component, reference it in a
+gallery page that shows all its states (loading, empty, error, disabled,
+variants). This page serves as visual verification for the designer and
+developers.
 
-## Sécurité Et Données Sensibles
+## Security And Sensitive Data
 
-- Ne jamais lire, afficher ou committer `.env` ni les autres fichiers d'environnement sensibles.
-- Ne jamais exposer secrets, tokens, mots de passe, cookies, clés API, DSN ou données personnelles sensibles.
-- Ne pas transformer une variable en `NEXT_PUBLIC_*` sans vérifier qu'elle peut être publique côté navigateur.
-- Ne pas ajouter de credentials réalistes dans le code, les tests, les fixtures ou la documentation.
+- Never read, display, or commit `.env` or other sensitive environment files.
+- Never expose secrets, tokens, passwords, cookies, API keys, DSNs, or sensitive personal data.
+- Do not turn a variable into `NEXT_PUBLIC_*` without verifying that it may be public in the browser.
+- Do not add realistic credentials to code, tests, fixtures, or documentation.
 
-## Workflow Avant, Pendant Et Après Modification
+## Workflow Before, During, And After Modification
 
-Avant de modifier :
+Before modifying:
 
-1. Identifier le besoin exact.
-2. Lire les fichiers concernés et les conventions locales.
-3. Vérifier la stack détectée, le router Next.js utilisé et le lockfile.
-4. Proposer un plan court si la modification touche plusieurs zones.
+1. Identify the exact need.
+2. Read the relevant files and local conventions.
+3. Check the detected stack, the Next.js router in use, and the lockfile.
+4. Propose a short plan if the change touches several areas.
 
-Pendant la modification :
+During modification:
 
-- Garder le diff minimal.
-- Respecter les frontières serveur/client de Next.js.
-- Ajouter ou adapter les tests quand le comportement change.
-- Conserver les noms, patterns et abstractions existants.
+- Keep the diff minimal.
+- Respect Next.js server/client boundaries.
+- Add or adapt tests when behavior changes.
+- Preserve existing names, patterns, and abstractions.
 
-Après la modification :
+After modification:
 
-- Résumer les fichiers modifiés.
-- Indiquer les commandes lancées.
-- Signaler les tests non lancés ou impossibles à lancer.
-- Mentionner les risques résiduels si nécessaire.
+- Summarize the modified files.
+- Indicate the commands run.
+- Report tests that were not run or could not be run.
+- Mention residual risks if necessary.
 
-## Commandes Du Projet
+## Project Commands
 
-Adapter cette section au projet et au gestionnaire de paquets détecté.
+Adapt this section to the project and the detected package manager.
 
 ```bash
-# Installer les dépendances
+# Install dependencies
 <npm install | pnpm install | yarn install>
 
-# Lancer le serveur de développement
+# Start the development server
 <npm run dev | pnpm dev | yarn dev>
 
-# Vérifier le typage
+# Check types
 <npm run typecheck | pnpm typecheck | yarn typecheck>
 
-# Linter
+# Lint
 <npm run lint | pnpm lint | yarn lint>
 
-# Tests unitaires et composants
+# Unit and component tests
 <npm run test | pnpm test | yarn test>
 
-# Tests E2E
+# E2E tests
 <npm run test:e2e | pnpm test:e2e | yarn test:e2e>
 
-# Build de production
+# Production build
 <npm run build | pnpm build | yarn build>
 ```
 
-## Skills Disponibles
+## Available Skills
 
-Adapter cette liste aux skills réellement installés dans `.claude/skills/`.
+Adapt this list to the skills actually installed in `.claude/skills/`.
 
-- `<skill-review>` : `<usage>`
-- `<skill-debug>` : `<usage>`
-- `<skill-test>` : `<usage>`
-- `<skill-nextjs>` : `<usage>`
-- `<skill-performance>` : `<usage>`
-- `<skill-accessibility>` : `<usage>`
+- `<skill-review>`: `<usage>`
+- `<skill-debug>`: `<usage>`
+- `<skill-test>`: `<usage>`
+- `<skill-nextjs>`: `<usage>`
+- `<skill-performance>`: `<usage>`
+- `<skill-accessibility>`: `<usage>`
 
-## Conventions React, TypeScript Et Next.js
+## React, TypeScript, And Next.js Conventions
 
-- Composants : `<organisation, conventions de nommage, co-location>`
-- Server Components : privilégier le rendu serveur quand il est compatible avec le besoin.
-- Client Components : limiter `"use client"` aux composants qui ont besoin d'état navigateur, d'effets ou d'API client.
-- Routing : respecter l'architecture existante App Router, Pages Router ou hybride.
-- Data fetching : suivre les patterns déjà utilisés pour cache, revalidation, erreurs et loading states.
-- TypeScript : éviter `any`; utiliser les types existants et expliciter les contrats publics.
-- Formulaires : `<React Hook Form, actions serveur, validation Zod, autre>`
-- Accessibilité : conserver labels, états focus, navigation clavier et textes alternatifs.
-- Performance : éviter les bundles client inutiles, imports lourds côté client et recalculs non nécessaires.
+- Components: `<organization, naming conventions, co-location>`
+- Server Components: prefer server rendering when compatible with the need.
+- Client Components: limit `"use client"` to components that need browser state, effects, or client APIs.
+- Routing: respect the existing App Router, Pages Router, or hybrid architecture.
+- Data fetching: follow the patterns already used for cache, revalidation, errors, and loading states.
+- TypeScript: avoid `any`; use existing types and make public contracts explicit.
+- Forms: `<React Hook Form, server actions, Zod validation, other>`
+- Accessibility: preserve labels, focus states, keyboard navigation, and alternative text.
+- Performance: avoid unnecessary client bundles, heavy client-side imports, and unnecessary recomputations.
 
 ## Tests
 
-- Unitaires : `<emplacement et commande>`
-- Composants : `<emplacement et commande>`
-- E2E : `<emplacement et commande>`
-- Fixtures et mocks : `<conventions>`
+- Unit: `<location and command>`
+- Components: `<location and command>`
+- E2E: `<location and command>`
+- Fixtures and mocks: `<conventions>`
 
-Quand un bug est corrigé, ajouter un test de régression si le projet le permet.
-Ne pas supprimer ou assouplir un test pour masquer une régression.
+When a bug is fixed, add a regression test if the project allows it. Do not
+delete or loosen a test to hide a regression.
 
-## Git, Branches, Commits, Pull Requests Et Déploiements
+## Git, Branches, Commits, Pull Requests, And Deployments
 
-- Ne pas modifier les fichiers sans rapport avec la demande.
-- Ne pas revert des changements utilisateur sans demande explicite.
-- Ne pas inclure fichiers IDE, caches, logs, artefacts générés ou fichiers d'environnement.
-- Ne pas lancer de commande Git ou de données destructive sans confirmation explicite.
-- Vérifier les diffs staged et non staged avant un commit.
-- Documenter dans la pull request les commandes de vérification lancées et les risques connus.
-- Ne pas créer ou pousser de tag, branche ou déploiement sans demande explicite.
+- Do not modify files unrelated to the request.
+- Do not revert user changes without an explicit request.
+- Do not include IDE files, caches, logs, generated artifacts, or environment files.
+- Do not run destructive Git or data commands without explicit confirmation.
+- Check staged and unstaged diffs before committing.
+- Document the verification commands run and known risks in the pull request.
+- Do not create or push a tag, branch, or deployment without an explicit request.
 
 ### Branches
 
-- Créer les branches de travail depuis la branche d'intégration du projet.
-- Utiliser le numéro de ticket associé dans le nom de branche.
-- Utiliser un nom court en kebab-case après le ticket.
+- Create working branches from the project's integration branch.
+- Use the associated ticket number in the branch name.
+- Use a short kebab-case name after the ticket.
 
-Format recommandé :
+Recommended format:
 
 ```text
-<type>/<ticket>_<description-courte>
+<type>/<ticket>_<short-description>
 ```
 
-Exemples :
+Examples:
 
 ```text
 feature/US-123_login-form
@@ -248,17 +243,17 @@ chore/TECH-321_update-next-config
 
 ### Commits
 
-- Utiliser la convention Conventional Commits.
-- Utiliser le numéro de ticket associé comme scope.
-- Si aucun ticket n'existe, demander le scope attendu ou utiliser un scope technique court validé par le projet.
+- Use the Conventional Commits convention.
+- Use the associated ticket number as the scope.
+- If no ticket exists, ask for the expected scope or use a short technical scope validated by the project.
 
-Format de commit recommandé :
+Recommended commit format:
 
 ```text
-<type>(<scope>): <description courte>
+<type>(<scope>): <short description>
 ```
 
-Exemples :
+Examples:
 
 ```text
 feat(US-123): add login form
@@ -267,9 +262,9 @@ test(TICKET-456): add router regression test
 docs(TECH-321): document local setup
 ```
 
-## Notes Propres Au Projet
+## Project-Specific Notes
 
-Ajouter ici les décisions locales importantes :
+Add important local decisions here:
 
 - `<decision 1>`
 - `<decision 2>`

@@ -1,167 +1,167 @@
 ---
 name: plan
-description: "Planifie l'implémentation d'une feature, bugfix, refactor, migration frontend ou upgrade dans un projet React, TypeScript et Next.js. Analyse la stack, le router, les composants, routes, hooks, services, tests, impacts cache/rendu/hydratation/accessibilité/bundle, puis produit un plan ordonné sans modifier le code."
+description: "Plans the implementation of a feature, bugfix, refactor, frontend migration, or upgrade in a React, TypeScript, and Next.js project. Analyzes the stack, router, components, routes, hooks, services, tests, cache/rendering/hydration/accessibility/bundle impacts, then produces an ordered plan without modifying code."
 ---
 
-# Planification d'implémentation React / Next.js
+# React / Next.js Implementation Planning
 
-## Périmètre
+## Scope
 
-Déterminer si l'utilisateur demande un plan pour :
+Determine whether the user is asking for a plan for:
 
-- Feature UI ou parcours utilisateur
-- Bugfix React, TypeScript, Next.js, rendu ou hydratation
-- Refactor ciblé de composants, hooks, services ou routes
-- Migration frontend limitée
-- Upgrade React, Next.js, TypeScript, tooling ou dépendance
-- Correction performance, accessibilité, bundle ou data fetching
-- Ajout ou évolution de tests unitaires, composants ou E2E
+- UI feature or user journey
+- React, TypeScript, Next.js, rendering, or hydration bugfix
+- Targeted refactor of components, hooks, services, or routes
+- Limited frontend migration
+- React, Next.js, TypeScript, tooling, or dependency upgrade
+- Performance, accessibility, bundle, or data fetching fix
+- Addition or evolution of unit, component, or E2E tests
 
-Si l'utilisateur demande seulement un plan, ne jamais modifier le code.
+If the user asks only for a plan, never modify the code.
 
-Si le périmètre est ambigu, poser uniquement les questions bloquantes. Pour les
-points non bloquants, formuler des hypothèses explicites.
+If the scope is ambiguous, ask only blocking questions. For non-blocking points,
+state explicit assumptions.
 
-## Objectif
+## Goal
 
-Produire un plan exécutable, ordonné et adapté au projet.
+Produce an executable, ordered plan tailored to the project.
 
-Le plan doit :
+The plan must:
 
-- Respecter les conventions et versions réellement détectées.
-- Préserver l'architecture App Router, Pages Router ou hybride existante.
-- Séparer composants, routes, hooks, services, styles, tests et configuration.
-- Identifier les impacts sur cache, rendu, hydratation, accessibilité et bundle.
-- Garder le diff futur minimal.
-- Éviter migrations, dépendances et refactors non demandés.
-- Donner les validations utiles sans lancer d'action destructive.
+- Respect the conventions and versions actually detected.
+- Preserve the existing App Router, Pages Router, or hybrid architecture.
+- Separate components, routes, hooks, services, styles, tests, and configuration.
+- Identify impacts on cache, rendering, hydration, accessibility, and bundle.
+- Keep the future diff minimal.
+- Avoid migrations, dependencies, and refactors that were not requested.
+- Provide useful validations without running destructive actions.
 
-## État Des Lieux À Inspecter
+## Current State To Inspect
 
-Inspecter selon le sujet :
+Inspect according to the subject:
 
-- `package.json` : scripts, dépendances React/Next.js/TypeScript, tooling.
-- Lockfile : `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock` ou `bun.lockb`.
-- TypeScript : `tsconfig.json` et configurations étendues.
-- Next.js : `next.config.js`, `next.config.mjs`, `next.config.ts`, middleware.
-- Lint/format : `eslint.config.*`, `.eslintrc*`, Prettier, Stylelint.
-- Tests : Vitest, Jest, Testing Library, Storybook, Playwright, Cypress.
-- Router : présence de `app/`, `pages/`, `src/app/`, `src/pages/`.
-- Routes : layouts, pages, route handlers, API routes, middleware, dynamic routes.
-- UI : composants, styles, design system, accessibilité existante.
-- Logique : hooks, services, clients API, stores, providers, validators.
-- Data fetching : `fetch`, Server Components, actions serveur, SWR, TanStack Query, GraphQL.
-- Observabilité : Sentry, Datadog, OpenTelemetry, analytics, logs plateforme.
+- `package.json`: scripts, React/Next.js/TypeScript dependencies, tooling.
+- Lockfile: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, or `bun.lockb`.
+- TypeScript: `tsconfig.json` and extended configurations.
+- Next.js: `next.config.js`, `next.config.mjs`, `next.config.ts`, middleware.
+- Lint/format: `eslint.config.*`, `.eslintrc*`, Prettier, Stylelint.
+- Tests: Vitest, Jest, Testing Library, Storybook, Playwright, Cypress.
+- Router: presence of `app/`, `pages/`, `src/app/`, `src/pages/`.
+- Routes: layouts, pages, route handlers, API routes, middleware, dynamic routes.
+- UI: components, styles, design system, existing accessibility.
+- Logic: hooks, services, API clients, stores, providers, validators.
+- Data fetching: `fetch`, Server Components, server actions, SWR, TanStack Query, GraphQL.
+- Observability: Sentry, Datadog, OpenTelemetry, analytics, platform logs.
 
-Ne pas lire ni afficher `.env` ou les fichiers d'environnement sensibles.
+Do not read or display `.env` or sensitive environment files.
 
-## Analyse Next.js
+## Next.js Analysis
 
-Détecter et expliciter :
+Detect and state explicitly:
 
-- App Router : `app/`, layouts, Server Components, Client Components, route handlers.
-- Pages Router : `pages/`, `getServerSideProps`, `getStaticProps`, API routes.
-- Architecture hybride : coexistence `app/` et `pages/`, responsabilités de chaque zone.
-- Frontières serveur/client : composants qui nécessitent `"use client"` et ceux qui doivent rester serveur.
-- Stratégie de rendu : static, dynamic, SSR, ISR, streaming, client-side rendering.
-- Cache : `fetch` cache, `revalidate`, tags, SWR/TanStack Query, invalidation.
-- Hydratation : sources possibles de mismatch, dépendance au navigateur, dates, random, locale.
-- Bundle : imports côté client, librairies lourdes, découpage, dynamic imports.
+- App Router: `app/`, layouts, Server Components, Client Components, route handlers.
+- Pages Router: `pages/`, `getServerSideProps`, `getStaticProps`, API routes.
+- Hybrid architecture: coexistence of `app/` and `pages/`, responsibilities of each area.
+- Server/client boundaries: components that require `"use client"` and those that must remain server-side.
+- Rendering strategy: static, dynamic, SSR, ISR, streaming, client-side rendering.
+- Cache: `fetch` cache, `revalidate`, tags, SWR/TanStack Query, invalidation.
+- Hydration: possible mismatch sources, browser dependency, dates, random, locale.
+- Bundle: client-side imports, heavy libraries, splitting, dynamic imports.
 
-Ne pas migrer automatiquement Pages Router vers App Router. Ne pas ajouter
-`"use client"` à un arbre complet par facilité.
+Do not automatically migrate Pages Router to App Router. Do not add
+`"use client"` to an entire tree for convenience.
 
-## Questions Ouvertes
+## Open Questions
 
-Lister uniquement :
+List only:
 
-- Les décisions produit nécessaires pour éviter une mauvaise implémentation.
-- Les choix techniques qui changent fortement l'architecture, le coût ou le risque.
-- Les informations sans lesquelles le plan serait trompeur.
+- Product decisions needed to avoid an incorrect implementation.
+- Technical choices that strongly change architecture, cost, or risk.
+- Information without which the plan would be misleading.
 
-Pour le reste, indiquer les hypothèses :
+For the rest, state assumptions:
 
-- Router supposé si plusieurs architectures coexistent.
-- Gestionnaire de paquets retenu selon le lockfile.
-- Stratégie de rendu et cache supposée.
-- Niveau de compatibilité navigateur ou accessibilité attendu.
-- Couverture de tests réaliste.
+- Assumed router if several architectures coexist.
+- Package manager selected according to the lockfile.
+- Assumed rendering and cache strategy.
+- Expected browser compatibility or accessibility level.
+- Realistic test coverage.
 
-## Découpage Des Étapes
+## Step Breakdown
 
-Ordonner les étapes pour réduire les risques :
+Order steps to reduce risk:
 
-1. Lire les configs et détecter stack, router, scripts et conventions.
-2. Identifier composants, routes, hooks, services, styles et tests concernés.
-3. Définir les changements de données, état, rendu et cache.
-4. Définir les changements UI, accessibilité et design system.
-5. Définir les impacts Server Components / Client Components.
-6. Prévoir les tests unitaires, composants et E2E utiles.
-7. Prévoir les validations de typecheck, lint, test et build.
-8. Lister les risques, mitigations et décisions à confirmer.
+1. Read configs and detect stack, router, scripts, and conventions.
+2. Identify affected components, routes, hooks, services, styles, and tests.
+3. Define data, state, rendering, and cache changes.
+4. Define UI, accessibility, and design system changes.
+5. Define Server Components / Client Components impacts.
+6. Plan useful unit, component, and E2E tests.
+7. Plan typecheck, lint, test, and build validations.
+8. List risks, mitigations, and decisions to confirm.
 
-## Risques À Analyser
+## Risks To Analyze
 
-- **Rendu** : SSR, SSG, ISR, streaming, dynamic rendering non anticipé.
-- **Hydratation** : mismatch serveur/client, usage navigateur côté serveur.
-- **Cache** : données obsolètes, invalidation manquante, revalidation trop large.
-- **Bundle** : dépendance lourde côté client, mauvais import, perte de code splitting.
-- **Accessibilité** : labels, focus, clavier, contrastes, textes alternatifs.
-- **TypeScript** : contrats faibles, `any`, types publics cassés.
-- **Routing** : dynamic routes, query params, redirects, middleware, API routes.
-- **État** : stores globaux, providers, synchronisation URL/cache/UI.
-- **Tests** : comportement critique non couvert, mocks fragiles, E2E trop large.
-- **Upgrade** : breaking changes React/Next.js/tooling, plugins incompatibles.
+- **Rendering**: SSR, SSG, ISR, streaming, unanticipated dynamic rendering.
+- **Hydration**: server/client mismatch, browser usage on the server side.
+- **Cache**: stale data, missing invalidation, overly broad revalidation.
+- **Bundle**: heavy client-side dependency, wrong import, loss of code splitting.
+- **Accessibility**: labels, focus, keyboard, contrast, alternative text.
+- **TypeScript**: weak contracts, `any`, broken public types.
+- **Routing**: dynamic routes, query params, redirects, middleware, API routes.
+- **State**: global stores, providers, URL/cache/UI synchronization.
+- **Tests**: critical behavior uncovered, fragile mocks, overly broad E2E.
+- **Upgrade**: React/Next.js/tooling breaking changes, incompatible plugins.
 
-## Stratégie De Tests
+## Test Strategy
 
-Prévoir selon le changement :
+Plan according to the change:
 
-- Unitaires : fonctions pures, services, hooks isolables, validators.
-- Composants : rendu, interactions, états loading/error/empty, accessibilité.
-- Next.js : routes, loaders, server actions, route handlers, metadata si pertinent.
-- E2E : parcours critique, navigation, auth, formulaires, régression bugfix.
-- Régression : test qui reproduit le bug avant correction si possible.
+- Unit: pure functions, services, isolatable hooks, validators.
+- Components: rendering, interactions, loading/error/empty states, accessibility.
+- Next.js: routes, loaders, server actions, route handlers, metadata when relevant.
+- E2E: critical journey, navigation, auth, forms, bugfix regression.
+- Regression: test that reproduces the bug before the fix when possible.
 
-Ne pas supprimer, désactiver ou assouplir un test pour masquer une régression.
+Do not delete, disable, or loosen a test to hide a regression.
 
-## Validation Technique
+## Technical Validation
 
-Proposer uniquement les commandes adaptées au projet et au lockfile :
+Propose only commands adapted to the project and lockfile:
 
 - `<package-manager> run typecheck`
 - `<package-manager> run lint`
 - `<package-manager> run test`
-- `<package-manager> run test -- <filtre>`
+- `<package-manager> run test -- <filter>`
 - `<package-manager> run test:e2e`
 - `<package-manager> run build`
-- Commande Storybook ou accessibility si présente
+- Storybook or accessibility command if present
 
-Ne pas proposer de migration, upgrade de dépendance ou commande destructive non
-demandée.
+Do not propose an unrequested migration, dependency upgrade, or destructive
+command.
 
-## Règles
+## Rules
 
-- Ne jamais modifier le code quand l'utilisateur demande seulement un plan.
-- Ne pas ajouter de dépendance sans justification explicite et validation.
-- Ne pas inclure de refactor large sauf demande explicite.
-- Ne pas changer de router Next.js sans demande explicite.
-- Ne pas contourner TypeScript, ESLint, tests ou accessibilité.
-- Respecter le gestionnaire de paquets imposé par le lockfile.
-- Signaler les opportunités de refactor hors périmètre sans les intégrer au plan.
-- Ne pas masquer une incertitude importante : la lister comme décision à valider.
+- Never modify code when the user asks only for a plan.
+- Do not add a dependency without explicit justification and validation.
+- Do not include a broad refactor unless explicitly requested.
+- Do not change Next.js router without an explicit request.
+- Do not bypass TypeScript, ESLint, tests, or accessibility.
+- Respect the package manager imposed by the lockfile.
+- Report out-of-scope refactor opportunities without integrating them into the plan.
+- Do not hide an important uncertainty: list it as a decision to validate.
 
-## Format De Sortie
+## Output Format
 
-Présenter le plan avec :
+Present the plan with:
 
-1. **Résumé** : besoin reformulé en une phrase.
-2. **Hypothèses** : choix supposés si non confirmés.
-3. **Contexte détecté** : stack, router, conventions, fichiers et contraintes observés.
-4. **Étapes** : ordre, fichier ou zone, changement prévu, raison, dépendances.
-5. **Fichiers** : fichiers à créer ou modifier, responsabilité et risque.
-6. **Tests** : tests à écrire ou adapter, mocks/fixtures nécessaires.
-7. **Validations** : commandes à lancer et objectif de chaque commande.
-8. **Risques** : impacts possibles et mitigations.
-9. **Complexité** : simple, modéré ou complexe, avec justification courte.
-10. **Décisions à valider** : uniquement les points nécessaires avant implémentation.
+1. **Summary**: need restated in one sentence.
+2. **Assumptions**: assumed choices if not confirmed.
+3. **Detected context**: stack, router, conventions, files, and observed constraints.
+4. **Steps**: order, file or area, planned change, reason, dependencies.
+5. **Files**: files to create or modify, responsibility, and risk.
+6. **Tests**: tests to write or adapt, required mocks/fixtures.
+7. **Validations**: commands to run and goal of each command.
+8. **Risks**: possible impacts and mitigations.
+9. **Complexity**: simple, moderate, or complex, with short justification.
+10. **Decisions to validate**: only points required before implementation.
